@@ -22,4 +22,8 @@
     <ProjectReference Include="..\SV.Pay.Domain\SV.Pay.Domain.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+  </ItemGroup>
+
 </Project>
