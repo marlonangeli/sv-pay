@@ -13,5 +13,5 @@ public class Transaction : Entity
     public Guid? RelatedAccountId { get; set; }
     public Account? RelatedAccount { get; set; }
     public TransactionType Type { get; set; }
-    public string? Description { get; set; }
+    public string Description { get; set; }
 }

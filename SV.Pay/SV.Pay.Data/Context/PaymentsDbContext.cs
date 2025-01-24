@@ -13,6 +13,7 @@ public sealed class PaymentsDbContext(DbContextOptions<PaymentsDbContext> option
     public DbSet<User> Users { get; set; }
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
+    public DbContext Instance => this;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

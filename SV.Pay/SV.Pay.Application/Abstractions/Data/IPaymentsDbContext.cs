@@ -11,5 +11,7 @@ public interface IPaymentsDbContext
     DbSet<Account> Accounts { get; }
     DbSet<Transaction> Transactions { get; }
 
+    DbContext Instance { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

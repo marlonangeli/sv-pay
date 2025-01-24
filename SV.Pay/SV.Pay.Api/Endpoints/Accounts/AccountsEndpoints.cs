@@ -3,7 +3,9 @@ using SV.Pay.Api.Extensions;
 using SV.Pay.Api.Utils;
 using SV.Pay.Application.Core.Accounts.Block;
 using SV.Pay.Application.Core.Accounts.Create;
+using SV.Pay.Application.Core.Accounts.GetById;
 using SV.Pay.Application.Core.Accounts.Inactive;
+using SV.Pay.Domain.Accounts;
 using SV.Pay.Shared;
 
 namespace SV.Pay.Api.Endpoints.Accounts;
@@ -22,6 +24,16 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .WithDescription("Create a new account")
             .Produces<Guid>()
+            .ProducesValidationProblem();
+
+        group.MapGet("/{accountId:guid}", async (Guid accountId, ISender sender, CancellationToken ct) =>
+            {
+                Result<Account> result = await sender.Send(new GetAccountByIdQuery(accountId), ct);
+
+                return result.Match(Results.Ok, CustomResults.Problem);
+            })
+            .WithDescription("Get account by id")
+            .Produces<Account>()
             .ProducesValidationProblem();
 
         group.MapPut("/block", async (BlockAccountCommand command, ISender sender, CancellationToken ct) =>
