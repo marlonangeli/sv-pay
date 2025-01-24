@@ -1,4 +1,6 @@
-﻿using SV.Pay.Api.Utils;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using SV.Pay.Api.Utils;
 
 namespace SV.Pay.Api;
 
@@ -8,7 +10,10 @@ public static class DependencyInjection
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
+        services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 

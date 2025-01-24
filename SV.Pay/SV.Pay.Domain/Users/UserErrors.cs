@@ -19,4 +19,12 @@ public static class UserErrors
     public static readonly Error InvalidCPF = Error.Problem(
         "Users.InvalidCPF",
         "CPF provided was invalid");
+
+    public static readonly Error CPFNotUnique = Error.Conflict(
+        "Users.CPFNotUnique",
+        "The provided CPF is not unique");
+
+    public static readonly Error CPFNotFound = Error.NotFound(
+        "Users.CPFNotFound",
+        "The user with the specified CPF was not found");
 }

@@ -10,6 +10,7 @@ public class Account : Entity
 {
     public Guid UserId { get; set; }
     public User? User { get; set; }
+    public string Name { get; set; }
     public IEnumerable<Transaction>? Transactions { get; set; }
     [ConcurrencyCheck] public Money Balance { get; set; }
     public Money DailyLimit { get; set; }

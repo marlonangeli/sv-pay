@@ -1,7 +1,11 @@
-﻿namespace SV.Pay.Domain.Users;
+﻿using System.Text.RegularExpressions;
 
-public class CPF
+namespace SV.Pay.Domain.Users;
+
+public record CPF
 {
+    private readonly string _value;
+
     public CPF(string value)
     {
         if (!IsValid(value))
@@ -9,36 +13,53 @@ public class CPF
             throw new ArgumentException("Invalid CPF");
         }
 
-        Value = value;
+        _value = Sanitize(value);
     }
 
-    public string Value { get; }
+    public string Value => _value;
 
-    public static bool IsValid(string value)
+    public string FormattedValue => Format(_value);
+
+    public static bool IsValid(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
             return false;
         }
 
-        value = value.Replace(".", "").Replace("-", "");
+        string cpf = Sanitize(value);
 
-        if (value.Length != 11)
+        if (cpf.Length != 11)
         {
             return false;
         }
 
-        if (value.Distinct().Count() == 1)
+        if (cpf.Distinct().Count() == 1)
         {
             return false;
         }
 
-        string cpf = value[..9];
-        string firstDigit = CalculateDigit(cpf);
-        cpf += firstDigit;
-        string secondDigit = CalculateDigit(cpf);
+        string baseNumber = cpf[..9];
+        string firstDigit = CalculateDigit(baseNumber);
+        baseNumber += firstDigit;
+        string secondDigit = CalculateDigit(baseNumber);
 
-        return value.EndsWith(firstDigit + secondDigit);
+        return cpf.EndsWith(firstDigit + secondDigit);
+    }
+
+    private static string Sanitize(string value)
+    {
+        return Regex.Replace(value, @"[^\d]", "");
+    }
+
+    private static string Format(string cpf)
+    {
+        if (cpf.Length != 11)
+        {
+            return cpf;
+        }
+
+        return $"{cpf[..3]}.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}-{cpf.Substring(9, 2)}";
     }
 
     private static string CalculateDigit(string cpf)
@@ -50,9 +71,11 @@ public class CPF
             sum += int.Parse(cpf[i].ToString()) * (cpf.Length + 1 - i);
         }
 
-        int digit = 11 - sum % 11;
+        int digit = 11 - (sum % 11);
         return digit >= 10 ? "0" : digit.ToString();
     }
 
-    public override string ToString() => Value;
+    public override string ToString() => FormattedValue;
+
+    public static implicit operator string(CPF cpf) => cpf.Value;
 }

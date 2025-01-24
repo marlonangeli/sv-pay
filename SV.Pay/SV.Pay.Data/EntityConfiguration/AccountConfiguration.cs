@@ -16,12 +16,16 @@ internal sealed class AccountConfiguration : IEntityTypeConfiguration<Account>
 
         builder.Property(a => a.Balance)
             .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value))
+            .HasConversion(money => money.Cents, value => new Money(value / 100m))
             .HasColumnType("decimal(18,2)");
 
         builder.Property(a => a.DailyLimit)
             .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value))
+            .HasConversion(money => money.Cents, value => new Money(value / 100m))
             .HasColumnType("decimal(18,2)");
+
+        builder.Property(a => a.Name)
+            .IsRequired()
+            .HasMaxLength(32);
     }
 }

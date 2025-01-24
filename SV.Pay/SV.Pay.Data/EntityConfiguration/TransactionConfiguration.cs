@@ -22,7 +22,7 @@ internal sealed class TransactionConfiguration : IEntityTypeConfiguration<Transa
 
         builder.Property(t => t.Amount)
             .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value))
+            .HasConversion(money => money.Cents, value => new Money(value / 100m))
             .HasColumnType("decimal(18,2)");
 
         builder.Property(t => t.Type)

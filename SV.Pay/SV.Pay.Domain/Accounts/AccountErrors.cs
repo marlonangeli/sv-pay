@@ -8,6 +8,10 @@ public static class AccountErrors
         "Accounts.NotFound",
         "The account was not found");
 
+    public static readonly Error UserNotFound = Error.NotFound(
+        "Accounts.UserNotFound",
+        "The user was not found");
+
     public static readonly Error AccountIsBlocked = Error.Failure(
         "Accounts.AccountIsBlocked",
         "The account is blocked");

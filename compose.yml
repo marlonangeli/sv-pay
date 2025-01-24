@@ -17,8 +17,8 @@ services:
     networks:
       - sv-payments
     # Some access errors running on Windows :/
-    # volumes:
-    #   - sv-sqlserver-data:/var/opt/mssql/data
+    volumes:
+      - sv-sqlserver-data:/var/opt/mssql
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1' || exit 1"]
       interval: 10s
