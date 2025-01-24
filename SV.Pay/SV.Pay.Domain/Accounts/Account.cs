@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Data.SqlTypes;
-using System.Transactions;
 using SV.Pay.Domain.Types;
 using SV.Pay.Domain.Users;
 using SV.Pay.Shared;

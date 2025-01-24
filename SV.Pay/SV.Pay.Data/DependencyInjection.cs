@@ -16,7 +16,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        string? connectionString = configuration.GetConnectionString("Database");
+        string? connectionString = configuration.GetConnectionString("Payments") ??
+                                   configuration["SQLSERVER_CONNECTION_STRING"];
 
         services.AddDbContext<PaymentsDbContext>(
             options => options

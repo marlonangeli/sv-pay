@@ -8,6 +8,8 @@ using SV.Pay.Data;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.AddEnvironmentConfiguration(args);
+
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services

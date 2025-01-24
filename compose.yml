@@ -1,0 +1,36 @@
+name: sv-payments
+
+services:
+  sqlserver:
+    container_name: sqlserver
+    ports:
+      - 1433:1433
+    env_file:
+      - .env
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${SQLSERVER_PASSWORD}
+      TZ: America/Sao_Paulo
+    # image: mcr.microsoft.com/mssql/server   -> amd64
+    image: mcr.microsoft.com/azure-sql-edge # -> arm64
+    restart: always
+    networks:
+      - sv-payments
+    # Some access errors running on Windows :/
+    # volumes:
+    #   - sv-sqlserver-data:/var/opt/mssql/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      retries: 10
+      start_period: 10s
+      timeout: 3s
+    
+networks:
+  sv-payments:
+    name: sv-payments
+    driver: bridge
+
+volumes:
+  sv-sqlserver-data:
+    name: sv-sqlserver-data

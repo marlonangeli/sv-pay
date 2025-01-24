@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SV.Pay.Domain.Users;
 
