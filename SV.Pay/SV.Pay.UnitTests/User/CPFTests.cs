@@ -15,7 +15,7 @@ public class CPFTests
     [InlineData("777.777.777-77")]
     [InlineData("888.888.888-88")]
     [InlineData("999.999.999-99")]
-    public void Invalid_CPF_With_Same_Digits_Should_Return_False(string cpf)
+    public void InvalidCPFWithSameDigits_Should_ReturnFalse(string cpf)
     {
         Assert.False(CPF.IsValid(cpf));
     }
@@ -25,7 +25,7 @@ public class CPFTests
     [InlineData("14256482075")]
     [InlineData("447.658.370-92")]
     [InlineData("772.786.810-81")]
-    public void Valid_CPF_Should_Return_True(string cpf)
+    public void ValidCPF_Should_ReturnTrue(string cpf)
     {
         Assert.True(CPF.IsValid(cpf));
     }
@@ -34,7 +34,7 @@ public class CPFTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public void Invalid_CPF_Input_Should_Return_False(string cpf)
+    public void InvalidCPFInput_Should_ReturnFalse(string cpf)
     {
         Assert.False(CPF.IsValid(cpf));
     }
@@ -50,7 +50,7 @@ public class CPFTests
     }
 
     [Fact]
-    public void Create_CPF_With_Invalid_Value_Should_Throw_ArgumentException()
+    public void CreateCPFWithInvalidValue_Should_ThrowArgumentException()
     {
         Assert.Throws<ArgumentException>(() => new CPF("12345678900"));
     }
@@ -58,7 +58,7 @@ public class CPFTests
     [Theory]
     [InlineData("968.602.200-74", "96860220074")]
     [InlineData("772.786.810-81", "77278681081")]
-    public void CPF_Should_Store_Unformatted_Value(string formattedCpf, string expectedValue)
+    public void CPF_Should_StoreUnformattedValue(string formattedCpf, string expectedValue)
     {
         var cpf = new CPF(formattedCpf);
         Assert.Equal(expectedValue, cpf.Value);
@@ -67,7 +67,7 @@ public class CPFTests
     [Theory]
     [InlineData("96860220074", "968.602.200-74")]
     [InlineData("77278681081", "772.786.810-81")]
-    public void CPF_Should_Format_Correctly(string unformattedCpf, string expectedFormat)
+    public void CPF_Should_FormatCorrectly(string unformattedCpf, string expectedFormat)
     {
         var cpf = new CPF(unformattedCpf);
         Assert.Equal(expectedFormat, cpf.FormattedValue);
@@ -75,7 +75,7 @@ public class CPFTests
     }
 
     [Fact]
-    public void CPF_Implicit_Conversion_Should_Work()
+    public void CPFImplicitConversion_Should_Work()
     {
         CPF cpf = new CPF("968.602.200-74");
         string stringCpf = cpf;
