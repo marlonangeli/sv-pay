@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace SV.Pay.Application.Core.Transactions.Shared;
+namespace SV.Pay.Application.Core.Transactions.Create;
 
 public sealed class CreateTransactionValidator : AbstractValidator<CreateTransactionCommand>
 {

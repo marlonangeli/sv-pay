@@ -1,4 +1,4 @@
-﻿using SV.Pay.Application.Core.Transactions.Shared;
+﻿using SV.Pay.Application.Core.Transactions.Create;
 
 namespace SV.Pay.Application.Core.Transactions.Withdraw;
 

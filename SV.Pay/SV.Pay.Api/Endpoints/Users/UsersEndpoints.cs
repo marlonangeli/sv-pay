@@ -17,12 +17,12 @@ internal sealed class UsersEndpoints : IEndpoint
         group.MapPost("/", async (
                 CreateUserCommand command, ISender sender, CancellationToken ct) =>
             {
-                Result result = await sender.Send(command, ct);
+                Result<Guid> result = await sender.Send(command, ct);
 
                 return result.Match(Results.Created, CustomResults.Problem);
             })
             .WithDescription("Create a new user")
-            .Produces<Guid>()
+            .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesValidationProblem();
 
         group.MapPost("/search", async (

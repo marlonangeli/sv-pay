@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using SV.Pay.Api.Extensions;
 using SV.Pay.Api.Utils;
 using SV.Pay.Application.Core.Accounts.Block;
@@ -18,12 +19,13 @@ internal sealed class AccountsEndpoints : IEndpoint
 
         group.MapPost("/", async (CreateAccountCommand command, ISender sender, CancellationToken ct) =>
             {
-                Result result = await sender.Send(command, ct);
+                Result<Guid> result = await sender.Send(command, ct);
 
-                return result.Match(Results.Created, CustomResults.Problem);
+                return result.Match(accountId => Results.Created($"/accounts/{accountId}", accountId),
+                    CustomResults.Problem);
             })
             .WithDescription("Create a new account")
-            .Produces<Guid>()
+            .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesValidationProblem();
 
         group.MapGet("/{accountId:guid}", async (Guid accountId, ISender sender, CancellationToken ct) =>
