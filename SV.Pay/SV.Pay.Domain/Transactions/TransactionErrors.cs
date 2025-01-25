@@ -12,9 +12,13 @@ public static class TransactionErrors
         "Transactions.InvalidTransactionType",
         "The transaction type is invalid");
 
-    public static readonly Error NotFound = Error.NotFound(
+    public static readonly Error DescriptionIsRequired = Error.Problem(
+        "Transactions.DescriptionIsRequired",
+        "The description is required");
+
+    public static Error NotFound(Guid transactionId) => Error.NotFound(
         "Transactions.NotFound",
-        "The transaction was not found");
+        $"The transaction with Id = '{transactionId}' was not found");
 
     public static readonly Error AccountNotFound = Error.NotFound(
         "Transactions.AccountNotFound",
@@ -39,4 +43,16 @@ public static class TransactionErrors
     public static readonly Error ConcurrencyError = Error.Conflict(
         "Transactions.ConcurrencyError",
         "A concurrency error occurred while saving the transaction");
+
+    public static readonly Error InvalidDate = Error.Problem(
+        "Transactions.InvalidDate",
+        "The date is invalid");
+
+    public static readonly Error InvalidPeriodDate = Error.Problem(
+        "Transactions.InvalidPeriodDate",
+        "The period date is invalid");
+
+    public static readonly Error InvalidPeriodInterval = Error.Problem(
+        "Transactions.InvalidPeriodInterval",
+        "The period interval must be less than 1 year");
 }

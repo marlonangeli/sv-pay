@@ -4,11 +4,11 @@ using SV.Pay.Application.Abstractions.Messaging;
 using SV.Pay.Domain.Users;
 using SV.Pay.Shared;
 
-namespace SV.Pay.Application.Core.Users.GetUser;
+namespace SV.Pay.Application.Core.Users.SearchUser;
 
-internal sealed class GetUserHandler(IPaymentsDbContext context) : IQueryHandler<GetUserByEmailQuery, User>, IQueryHandler<GetUserByCPFQuery, User>
+internal sealed class SearchUserHandler(IPaymentsDbContext context) : IQueryHandler<SearchUserByEmailQuery, User>, IQueryHandler<SearchUserByCPFQuery, User>
 {
-    public async Task<Result<User>> Handle(GetUserByEmailQuery request, CancellationToken cancellationToken)
+    public async Task<Result<User>> Handle(SearchUserByEmailQuery request, CancellationToken cancellationToken)
     {
         User? user = await GetUserQuery()
             .Where(u => u.Email == request.Email)
@@ -16,10 +16,10 @@ internal sealed class GetUserHandler(IPaymentsDbContext context) : IQueryHandler
 
         return user is not null
             ? Result.Success(user)
-            : Result.Failure<User>(UserErrors.NotFoundByEmail);
+            : Result.Failure<User>(UserErrors.NotFoundByEmail(request.Email));
     }
 
-    public async Task<Result<User>> Handle(GetUserByCPFQuery request, CancellationToken cancellationToken)
+    public async Task<Result<User>> Handle(SearchUserByCPFQuery request, CancellationToken cancellationToken)
     {
         User? user = await GetUserQuery()
             .Where(u => u.CPF == request.CPF)
@@ -27,7 +27,7 @@ internal sealed class GetUserHandler(IPaymentsDbContext context) : IQueryHandler
 
         return user is not null
             ? Result.Success(user)
-            : Result.Failure<User>(UserErrors.CPFNotFound);
+            : Result.Failure<User>(UserErrors.CPFNotFound(request.CPF));
     }
 
     private IQueryable<User> GetUserQuery()

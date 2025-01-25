@@ -1,6 +1,6 @@
 ﻿using SV.Pay.Shared;
 
-namespace SV.Pay.Api.Utils;
+namespace SV.Pay.Api.Extensions;
 
 public static class CustomResults
 {

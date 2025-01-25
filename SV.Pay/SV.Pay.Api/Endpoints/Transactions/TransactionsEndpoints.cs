@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using SV.Pay.Api.Extensions;
-using SV.Pay.Api.Utils;
 using SV.Pay.Application.Core.Transactions;
 using SV.Pay.Application.Core.Transactions.Deposit;
 using SV.Pay.Application.Core.Transactions.GetAllByPeriod;
@@ -27,7 +26,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             })
             .WithDescription("Deposit money to account")
             .Produces<Guid>()
-            .ProducesValidationProblem();
+            .ProducesAllErrors();
 
         group.MapPost("/withdraw", async (CreateWithdrawCommand command, ISender sender, CancellationToken ct) =>
             {
@@ -37,7 +36,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             })
             .WithDescription("Withdraw money from account")
             .Produces<Guid>()
-            .ProducesValidationProblem();
+            .ProducesAllErrors();
 
         group.MapPost("/transfer", async (CreateTransferCommand command, ISender sender, CancellationToken ct) =>
             {
@@ -47,7 +46,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             })
             .WithDescription("Transfer money between accounts")
             .Produces<Guid>()
-            .ProducesValidationProblem();
+            .ProducesAllErrors();
 
         group.MapGet("/{accountId:guid}",
                 async (ISender sender,
@@ -66,6 +65,8 @@ internal sealed class TransactionsEndpoints : IEndpoint
                 })
             .WithDescription("Get transactions for account")
             .Produces<Pagination<Transaction>>()
-            .ProducesValidationProblem();
+            .ProducesBadRequest()
+            .ProducesNotFound()
+            .ProducesInternalServerError();
     }
 }

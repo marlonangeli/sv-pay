@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using SV.Pay.Application.Core.Shared;
+using SV.Pay.Application.Extensions;
+using SV.Pay.Domain.Transactions;
 
 namespace SV.Pay.Application.Core.Transactions.GetAllByPeriod;
 
@@ -12,15 +14,15 @@ public sealed class GetAllTransactionsByPeriodValidator : AbstractValidator<GetA
         RuleFor(x => x.StartDate)
             .NotEmpty()
             .LessThanOrEqualTo(x => x.EndDate)
-            .WithMessage("Start date must be less than or equal to end date");
+            .WithError(TransactionErrors.InvalidPeriodDate);
 
         RuleFor(x => x.EndDate)
             .NotEmpty()
             .GreaterThanOrEqualTo(x => x.StartDate)
-            .WithMessage("End date must be greater than or equal to start date");
+            .WithError(TransactionErrors.InvalidPeriodDate);
 
         RuleFor(x => x.EndDate.Subtract(x.StartDate).TotalDays)
             .LessThanOrEqualTo(365)
-            .WithMessage("The interval between dates must be less than 1 year");
+            .WithError(TransactionErrors.InvalidPeriodInterval);
     }
 }

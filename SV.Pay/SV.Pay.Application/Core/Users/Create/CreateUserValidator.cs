@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SV.Pay.Application.Extensions;
 using SV.Pay.Domain.Users;
 
 namespace SV.Pay.Application.Core.Users.Create;
@@ -9,23 +10,29 @@ public sealed class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {
         RuleFor(x => x.FirstName)
             .NotEmpty()
-            .MaximumLength(50);
+            .WithError(UserErrors.NameIsRequired)
+            .MaximumLength(50)
+            .WithError(UserErrors.NameIsRequired);
 
         RuleFor(x => x.LastName)
             .NotEmpty()
-            .MaximumLength(50);
+            .WithError(UserErrors.NameIsRequired)
+            .MaximumLength(50)
+            .WithError(UserErrors.NameIsRequired);
 
         RuleFor(x => x.Email)
-            .NotEmpty()
-            .EmailAddress();
+            .EmailAddress()
+            .WithError(UserErrors.InvalidEmail);
 
         RuleFor(x => x.DateOfBirth)
             .NotEmpty()
-            .GreaterThan(DateTime.Today.AddYears(-150)).WithMessage("Wow! You are too old!")
-            .LessThan(DateTime.Today);
+            .GreaterThan(DateTime.Today.AddYears(-150))
+            .WithError(UserErrors.InvalidBirthDate)
+            .LessThan(DateTime.Today)
+            .WithError(UserErrors.InvalidBirthDate);
 
         RuleFor(x => x.CPF)
-            .NotEmpty()
-            .Must(CPF.IsValid).WithMessage(UserErrors.InvalidCPF.Description);
+            .Must(CPF.IsValid)
+            .WithError(UserErrors.InvalidCPF);
     }
 }

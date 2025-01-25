@@ -39,3 +39,9 @@ app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 
 await app.RunAsync();
+
+// Required for integration tests
+namespace SV.Pay.Api
+{
+    public partial class Program;
+}

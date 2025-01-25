@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SV.Pay.Api.Utils;
+namespace SV.Pay.Api.Middlewares;
 
 
 internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)

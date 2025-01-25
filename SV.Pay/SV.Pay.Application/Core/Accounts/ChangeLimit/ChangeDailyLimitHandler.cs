@@ -2,15 +2,16 @@
 using SV.Pay.Application.Abstractions.Data;
 using SV.Pay.Application.Abstractions.Messaging;
 using SV.Pay.Domain.Accounts;
+using SV.Pay.Domain.Types;
 using SV.Pay.Shared;
 
-namespace SV.Pay.Application.Core.Accounts.Block;
+namespace SV.Pay.Application.Core.Accounts.ChangeLimit;
 
-internal sealed class BlockAccountHandler(IPaymentsDbContext context) : ICommandHandler<BlockAccountCommand>
+internal sealed class ChangeDailyLimitHandler(IPaymentsDbContext context) : ICommandHandler<ChangeDailyLimitCommand>
 {
-    public async Task<Result> Handle(BlockAccountCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(ChangeDailyLimitCommand request, CancellationToken cancellationToken)
     {
-        Account? account = await context.Accounts
+        var account = await context.Accounts
             .Where(a => a.Id == request.AccountId)
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -18,13 +19,14 @@ internal sealed class BlockAccountHandler(IPaymentsDbContext context) : ICommand
         {
             case null:
                 return Result.Failure(AccountErrors.NotFound);
-            case { Status: AccountStatus.Blocked } when !request.Unlock:
+            case { Status: AccountStatus.Blocked }:
                 return Result.Failure(AccountErrors.AccountIsBlocked);
             case { Status: AccountStatus.Inactive }:
                 return Result.Failure(AccountErrors.AccountIsInactive);
         }
 
-        account.Status = request.Unlock ? AccountStatus.Active : AccountStatus.Blocked;
+        account.DailyLimit = new Money(request.DailyLimit);
+
         await context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();

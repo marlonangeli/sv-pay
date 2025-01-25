@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using SV.Pay.Api.Extensions;
-using SV.Pay.Api.Utils;
 using SV.Pay.Application.Core.Accounts.Block;
 using SV.Pay.Application.Core.Accounts.Create;
 using SV.Pay.Application.Core.Accounts.GetById;
@@ -26,7 +25,9 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .WithDescription("Create a new account")
             .Produces<Guid>(StatusCodes.Status201Created)
-            .ProducesValidationProblem();
+            .ProducesBadRequest()
+            .ProducesConflict()
+            .ProducesInternalServerError();
 
         group.MapGet("/{accountId:guid}", async (Guid accountId, ISender sender, CancellationToken ct) =>
             {
@@ -36,7 +37,9 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .WithDescription("Get account by id")
             .Produces<Account>()
-            .ProducesValidationProblem();
+            .ProducesBadRequest()
+            .ProducesNotFound()
+            .ProducesInternalServerError();
 
         group.MapPut("/block", async (BlockAccountCommand command, ISender sender, CancellationToken ct) =>
             {
@@ -45,15 +48,15 @@ internal sealed class AccountsEndpoints : IEndpoint
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
             .WithDescription("Block or unblock an account")
-            .ProducesValidationProblem();
+            .ProducesAllErrors();
 
         group.MapPut("/inactive", async (InactiveAccountCommand command, ISender sender, CancellationToken ct) =>
             {
-                Result result = await sender.Send(new InactiveAccountCommand(command.AccountId), ct);
+                Result result = await sender.Send(command, ct);
 
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
-            .WithDescription("Inactive an account")
-            .ProducesValidationProblem();
+            .WithDescription("Inactive or active an account")
+            .ProducesAllErrors();
     }
 }
