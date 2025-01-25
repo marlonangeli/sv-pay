@@ -22,7 +22,7 @@ internal sealed class SearchUserHandler(IPaymentsDbContext context) : IQueryHand
     public async Task<Result<User>> Handle(SearchUserByCPFQuery request, CancellationToken cancellationToken)
     {
         User? user = await GetUserQuery()
-            .Where(u => u.CPF == request.CPF)
+            .Where(u => u.CPF == new CPF(request.CPF))
             .FirstOrDefaultAsync(cancellationToken);
 
         return user is not null

@@ -3,6 +3,7 @@ using SV.Pay.Api.Extensions;
 using SV.Pay.Application.Core.Users.Create;
 using SV.Pay.Application.Core.Users.GetById;
 using SV.Pay.Application.Core.Users.SearchUser;
+using SV.Pay.Domain;
 using SV.Pay.Domain.Users;
 using SV.Pay.Shared;
 
@@ -42,7 +43,8 @@ internal sealed class UsersEndpoints : IEndpoint
                         result = await sender.Send(new SearchUserByCPFQuery(request.Value), ct);
                         break;
                     default:
-                        return Results.BadRequest(Error.Problem("RequestType.Invalid", "Invalid request type"));
+                        var error = Result.Failure(GlobalSharedErrors.InvalidRequestType);
+                        return error.Match(null!, CustomResults.Problem);
                 }
 
                 return result.Match(Results.Ok, CustomResults.Problem);
