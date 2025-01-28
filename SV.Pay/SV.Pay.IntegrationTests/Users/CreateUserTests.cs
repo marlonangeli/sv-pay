@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Bogus;
 using FluentAssertions;
 using SV.Pay.Application.Core.Users.Create;
 using SV.Pay.Domain.Users;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SV.Pay.Application.Extensions;
+using SV.Pay.Application.Core.Shared;
 using SV.Pay.Domain.Accounts;
 
 namespace SV.Pay.Application.Core.Accounts.ChangeLimit;
@@ -12,9 +12,6 @@ public class ChangeDailyLimitValidator : AbstractValidator<ChangeDailyLimitComma
             .NotEmpty();
 
         RuleFor(x => x.DailyLimit)
-            .NotEmpty()
-            .WithError(AccountErrors.AccountDailyLimitIsInvalid)
-            .GreaterThan(0)
-            .WithError(AccountErrors.AccountDailyLimitIsInvalid);
+            .IsValidMoney(allowZero: false, AccountErrors.AccountDailyLimitIsInvalid);
     }
 }

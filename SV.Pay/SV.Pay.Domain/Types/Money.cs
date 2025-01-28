@@ -1,4 +1,6 @@
-﻿namespace SV.Pay.Domain.Types;
+﻿using System.Text.Json.Serialization;
+
+namespace SV.Pay.Domain.Types;
 
 public readonly record struct Money : IComparable<Money>
 {
@@ -7,6 +9,12 @@ public readonly record struct Money : IComparable<Money>
     public Money(decimal amount)
     {
         Cents = (long)Math.Round(amount * 100, 0);
+    }
+
+    [JsonConstructor]
+    public Money(long cents)
+    {
+        Cents = cents;
     }
 
     public decimal Amount => Cents / 100m;

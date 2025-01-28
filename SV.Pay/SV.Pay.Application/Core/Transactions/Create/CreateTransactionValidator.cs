@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SV.Pay.Application.Core.Shared;
 using SV.Pay.Application.Extensions;
 using SV.Pay.Domain.Transactions;
 
@@ -12,9 +13,7 @@ public sealed class CreateTransactionValidator : AbstractValidator<CreateTransac
             .NotEmpty();
 
         RuleFor(x => x.Amount)
-            .NotEmpty()
-            .GreaterThan(0)
-            .WithError(TransactionErrors.NegativeAmount);
+            .IsValidMoney();
 
         RuleFor(x => x.Description)
             .NotEmpty()

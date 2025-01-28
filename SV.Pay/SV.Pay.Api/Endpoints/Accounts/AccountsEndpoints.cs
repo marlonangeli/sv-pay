@@ -22,7 +22,7 @@ internal sealed class AccountsEndpoints : IEndpoint
             {
                 Result<Guid> result = await sender.Send(command, ct);
 
-                return result.Match(accountId => Results.Created($"/accounts/{accountId}", accountId),
+                return result.Match(accountId => Results.Created($"/api/v1/accounts/{accountId}", accountId),
                     CustomResults.Problem);
             })
             .WithDescription("Create a new account")
@@ -65,7 +65,7 @@ internal sealed class AccountsEndpoints : IEndpoint
             .WithDisplayName("ChangeDailyLimit")
             .ProducesErrors();
 
-        group.MapGet("/{accountId:guid}", async (Guid accountId, ISender sender, CancellationToken ct) =>
+        group.MapGet("/{accountId}", async (Guid accountId, ISender sender, CancellationToken ct) =>
             {
                 Result<Account> result = await sender.Send(new GetAccountByIdQuery(accountId), ct);
 
