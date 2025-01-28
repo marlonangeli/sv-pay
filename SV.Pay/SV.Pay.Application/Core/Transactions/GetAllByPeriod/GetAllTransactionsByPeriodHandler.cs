@@ -14,7 +14,7 @@ internal sealed class GetAllTransactionsByPeriodHandler(IPaymentsDbContext conte
     {
         int totalItems = await context.Transactions
             .Where(t =>
-                t.AccountId == request.AccountId &&
+                (t.AccountId == request.AccountId || t.RelatedAccountId == request.AccountId) &&
                 t.Date >= request.StartDate &&
                 t.Date <= request.EndDate)
             .CountAsync(cancellationToken);
@@ -22,7 +22,7 @@ internal sealed class GetAllTransactionsByPeriodHandler(IPaymentsDbContext conte
         var transactions = await context.Transactions
             .AsNoTracking()
             .Where(t =>
-                t.AccountId == request.AccountId &&
+                (t.AccountId == request.AccountId || t.RelatedAccountId == request.AccountId) &&
                 t.Date >= request.StartDate &&
                 t.Date <= request.EndDate)
             .OrderByDescending(t => t.Date)

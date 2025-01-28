@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SV.Pay.Data.Extensions;
 using SV.Pay.Domain.Accounts;
 using SV.Pay.Domain.Types;
 
@@ -9,20 +10,21 @@ internal sealed class AccountConfiguration : IEntityTypeConfiguration<Account>
 {
     public void Configure(EntityTypeBuilder<Account> builder)
     {
+        builder.ConfigureBaseEntity();
+
         builder.HasOne(a => a.User)
             .WithMany(u => u.Accounts)
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Property(a => a.UpdatedAt)
+            .IsConcurrencyToken();
+
         builder.Property(a => a.Balance)
-            .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value / 100m))
-            .HasColumnType("decimal(18,2)");
+            .ConfigureMoneyProperty();
 
         builder.Property(a => a.DailyLimit)
-            .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value / 100m))
-            .HasColumnType("decimal(18,2)");
+            .ConfigureMoneyProperty();
 
         builder.Property(a => a.Name)
             .IsRequired()

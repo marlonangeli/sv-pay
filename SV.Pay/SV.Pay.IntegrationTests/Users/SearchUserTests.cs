@@ -181,7 +181,7 @@ public class SearchUserTests(IntegrationTestWebAppFactory factory) : BaseIntegra
             new GetUserByEmailOrCPFRequest((GetUserRequestType)3, email));
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var errorResponse = await response.GetProblemDetails();
         errorResponse.Title.Should().Be(GlobalSharedErrors.InvalidRequestType.Code);
         errorResponse.Detail.Should().Be(GlobalSharedErrors.InvalidRequestType.Description);
@@ -198,7 +198,7 @@ public class SearchUserTests(IntegrationTestWebAppFactory factory) : BaseIntegra
             new GetUserByEmailOrCPFRequest((GetUserRequestType)3, cpf));
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var errorResponse = await response.GetProblemDetails();
         errorResponse.Title.Should().Be(GlobalSharedErrors.InvalidRequestType.Code);
         errorResponse.Detail.Should().Be(GlobalSharedErrors.InvalidRequestType.Description);

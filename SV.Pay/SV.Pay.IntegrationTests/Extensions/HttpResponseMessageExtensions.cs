@@ -1,7 +1,6 @@
 ﻿using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using SV.Pay.IntegrationTests.Contracts;
-using SV.Pay.Shared;
 
 namespace SV.Pay.IntegrationTests.Extensions;
 

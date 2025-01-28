@@ -2,7 +2,6 @@ using System.Reflection;
 using Serilog;
 using SV.Pay.Api;
 using SV.Pay.Api.Extensions;
-using SV.Pay.Api.Middlewares;
 using SV.Pay.Application;
 using SV.Pay.Data;
 
@@ -32,8 +31,6 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
-// Logging
-app.UseMiddleware<RequestContextLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SV.Pay.Api;
-using SV.Pay.Application.Abstractions.Data;
 using SV.Pay.Data.Context;
 using Testcontainers.MsSql;
 
@@ -18,6 +17,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         .WithImage("mcr.microsoft.com/azure-sql-edge")
         .WithPassword("PleaseDontUseThisP@ssw0rd")
         .WithEnvironment("ACCEPT_EULA", "Y")
+        .WithCleanUp(true)
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)

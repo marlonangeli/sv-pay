@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SV.Pay.Application.Extensions;
 using SV.Pay.Domain.Accounts;
 
 namespace SV.Pay.Application.Core.Accounts.Create;
@@ -15,14 +16,19 @@ public sealed class CreateAccountValidator : AbstractValidator<CreateAccountComm
 
         RuleFor(x => x.InitialBalance)
             .NotNull()
-            .GreaterThanOrEqualTo(0);
+            .WithError(AccountErrors.AccountInitialBalanceIsInvalid)
+            .GreaterThanOrEqualTo(0)
+            .WithError(AccountErrors.AccountInitialBalanceIsInvalid);
 
         RuleFor(x => x.DailyLimit)
             .NotEmpty()
-            .GreaterThan(0);
+            .WithError(AccountErrors.AccountDailyLimitIsInvalid)
+            .GreaterThan(0)
+            .WithError(AccountErrors.AccountDailyLimitIsInvalid);
 
         RuleFor(x => x.Name)
             .NotEmpty()
-            .MaximumLength(32);
+            .MaximumLength(32)
+            .WithError(AccountErrors.AccountNameIsInvalid);
     }
 }

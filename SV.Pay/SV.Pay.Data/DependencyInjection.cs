@@ -20,10 +20,13 @@ public static class DependencyInjection
                                    configuration["SQLSERVER_CONNECTION_STRING"];
 
         services.AddDbContext<PaymentsDbContext>(
-            options => options
-                .UseSqlServer(connectionString, npgsqlOptions =>
-                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName))
-                .UseSnakeCaseNamingConvention());
+            options =>
+            {
+                options
+                    .UseSqlServer(connectionString, msSqlOptions =>
+                        msSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName))
+                    .UseSnakeCaseNamingConvention();
+            });
 
         services.AddScoped<IPaymentsDbContext>(sp => sp.GetRequiredService<PaymentsDbContext>());
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SV.Pay.Data.Extensions;
 using SV.Pay.Domain.Users;
 
 namespace SV.Pay.Data.EntityConfiguration;
@@ -8,6 +9,8 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.ConfigureBaseEntity();
+
         builder.HasIndex(u => u.Email)
             .IsUnique();
 

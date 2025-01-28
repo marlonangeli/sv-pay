@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using SV.Pay.Api.Extensions;
-using SV.Pay.Application.Core.Transactions;
 using SV.Pay.Application.Core.Transactions.Deposit;
 using SV.Pay.Application.Core.Transactions.GetAllByPeriod;
 using SV.Pay.Application.Core.Transactions.Transfer;
@@ -25,8 +23,9 @@ internal sealed class TransactionsEndpoints : IEndpoint
                 return result.Match(Results.Created, CustomResults.Problem);
             })
             .WithDescription("Deposit money to account")
+            .WithDisplayName("Deposit")
             .Produces<Guid>()
-            .ProducesAllErrors();
+            .ProducesErrors();
 
         group.MapPost("/withdraw", async (CreateWithdrawCommand command, ISender sender, CancellationToken ct) =>
             {
@@ -35,8 +34,9 @@ internal sealed class TransactionsEndpoints : IEndpoint
                 return result.Match(Results.Created, CustomResults.Problem);
             })
             .WithDescription("Withdraw money from account")
+            .WithDisplayName("Withdraw")
             .Produces<Guid>()
-            .ProducesAllErrors();
+            .ProducesErrors();
 
         group.MapPost("/transfer", async (CreateTransferCommand command, ISender sender, CancellationToken ct) =>
             {
@@ -45,8 +45,9 @@ internal sealed class TransactionsEndpoints : IEndpoint
                 return result.Match(Results.Created, CustomResults.Problem);
             })
             .WithDescription("Transfer money between accounts")
+            .WithDisplayName("Transfer")
             .Produces<Guid>()
-            .ProducesAllErrors();
+            .ProducesErrors();
 
         group.MapGet("/{accountId:guid}",
                 async (ISender sender,
@@ -64,6 +65,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                     return result.Match(Results.Ok, CustomResults.Problem);
                 })
             .WithDescription("Get transactions for account")
+            .WithDisplayName("GetTransactionsByPeriod")
             .Produces<Pagination<Transaction>>()
             .ProducesBadRequest()
             .ProducesNotFound()

@@ -24,10 +24,9 @@ internal sealed class UsersEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Create a new user")
+            .WithDisplayName("CreateUser")
             .Produces<Guid>(StatusCodes.Status201Created)
-            .ProducesBadRequest()
-            .ProducesConflict()
-            .ProducesInternalServerError();
+            .ProducesErrors();
 
         group.MapPost("/search", async (
                 GetUserByEmailOrCPFRequest request, ISender sender, CancellationToken ct) =>
@@ -50,10 +49,9 @@ internal sealed class UsersEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get user by email or CPF")
+            .WithDisplayName("SearchUser")
             .Produces<User>()
-            .ProducesBadRequest()
-            .ProducesNotFound()
-            .ProducesInternalServerError();
+            .ProducesErrors();
 
         group.MapGet("/{userId}", async (
                 Guid userId, ISender sender, CancellationToken ct) =>
@@ -63,6 +61,7 @@ internal sealed class UsersEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get user by ID")
+            .WithDisplayName("GetUserById")
             .Produces<User>()
             .ProducesBadRequest()
             .ProducesNotFound()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SV.Pay.Data.Extensions;
 using SV.Pay.Domain.Transactions;
 using SV.Pay.Domain.Types;
 
@@ -9,6 +10,17 @@ internal sealed class TransactionConfiguration : IEntityTypeConfiguration<Transa
 {
     public void Configure(EntityTypeBuilder<Transaction> builder)
     {
+        builder.ConfigureBaseEntity();
+
+        builder.HasIndex(t => new { t.AccountId, t.Date })
+            .IncludeProperties(t => new { t.Amount, t.Type });
+
+        builder.HasIndex(t => new { t.RelatedAccountId, t.Date })
+            .HasFilter("[related_account_id] IS NOT NULL");
+
+        builder.Property(t => t.UpdatedAt)
+            .IsConcurrencyToken();
+
         builder.HasOne(t => t.Account)
             .WithMany(a => a.Transactions)
             .HasForeignKey(t => t.AccountId)
@@ -18,12 +30,11 @@ internal sealed class TransactionConfiguration : IEntityTypeConfiguration<Transa
         builder.HasOne(t => t.RelatedAccount)
             .WithMany()
             .HasForeignKey(t => t.RelatedAccountId)
-            .IsRequired(false);
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property(t => t.Amount)
-            .IsRequired()
-            .HasConversion(money => money.Cents, value => new Money(value / 100m))
-            .HasColumnType("decimal(18,2)");
+            .ConfigureMoneyProperty();
 
         builder.Property(t => t.Type)
             .IsRequired();
