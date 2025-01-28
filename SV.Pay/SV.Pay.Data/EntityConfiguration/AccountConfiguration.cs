@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SV.Pay.Data.Extensions;
 using SV.Pay.Domain.Accounts;
-using SV.Pay.Domain.Types;
 
 namespace SV.Pay.Data.EntityConfiguration;
 

@@ -13,7 +13,7 @@ public sealed class CreateTransactionValidator : AbstractValidator<CreateTransac
             .NotEmpty();
 
         RuleFor(x => x.Amount)
-            .IsValidMoney();
+            .IsValidMoney(allowZero: false, TransactionErrors.NegativeAmount);
 
         RuleFor(x => x.Description)
             .NotEmpty()
@@ -22,6 +22,7 @@ public sealed class CreateTransactionValidator : AbstractValidator<CreateTransac
         RuleFor(x => x.Date)
             .NotEmpty()
             .GreaterThan(DateTime.Today.AddYears(-5))
+            .WithError(TransactionErrors.InvalidDate)
             .LessThan(DateTime.Today.AddYears(1))
             .WithError(TransactionErrors.InvalidDate);
     }
