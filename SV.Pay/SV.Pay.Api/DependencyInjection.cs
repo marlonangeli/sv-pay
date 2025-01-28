@@ -16,6 +16,15 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 
+        services.AddCors(cors => cors.AddDefaultPolicy(policy =>
+        {
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+            policy.AllowAnyOrigin();
+            policy.WithExposedHeaders("Location");
+            policy.SetPreflightMaxAge(TimeSpan.FromDays(1));
+        }));
+
         return services;
     }
 }

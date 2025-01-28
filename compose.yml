@@ -1,6 +1,24 @@
 name: sv-payments
 
 services:
+  sv.api:
+    container_name: sv.api
+    image: sv.pay.api:dev
+    build:
+      context: SV.Pay/SV.Pay.Api
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8081"
+      - "5000:8080"
+    env_file:
+      - .env
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    networks:
+      - sv-payments
+    depends_on:
+      - sqlserver
+
   sqlserver:
     container_name: sqlserver
     ports:
@@ -13,7 +31,6 @@ services:
       TZ: America/Sao_Paulo
     # image: mcr.microsoft.com/mssql/server   -> amd64
     image: mcr.microsoft.com/azure-sql-edge # -> arm64
-    restart: always
     networks:
       - sv-payments
     # Some access errors running on Windows :/
