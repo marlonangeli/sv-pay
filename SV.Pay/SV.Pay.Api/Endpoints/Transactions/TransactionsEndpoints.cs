@@ -21,7 +21,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             {
                 Result<Guid> result = await sender.Send(command, ct);
 
-                return result.Match(guid => Results.Created($"$/api/v1/transactions/{guid}", guid),
+                return result.Match(guid => Results.Created($"/api/v1/transactions/{guid}", guid),
                     CustomResults.Problem);
             })
             .WithDescription("Deposit money to account")
@@ -33,7 +33,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             {
                 Result<Guid> result = await sender.Send(command, ct);
 
-                return result.Match(guid => Results.Created($"$/api/v1/transactions/{guid}", guid),
+                return result.Match(guid => Results.Created($"/api/v1/transactions/{guid}", guid),
                     CustomResults.Problem);
             })
             .WithDescription("Withdraw money from account")
@@ -45,7 +45,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
             {
                 Result<Guid> result = await sender.Send(command, ct);
 
-                return result.Match(guid => Results.Created($"$/api/v1/transactions/{guid}", guid),
+                return result.Match(guid => Results.Created($"/api/v1/transactions/{guid}", guid),
                     CustomResults.Problem);
             })
             .WithDescription("Transfer money between accounts")

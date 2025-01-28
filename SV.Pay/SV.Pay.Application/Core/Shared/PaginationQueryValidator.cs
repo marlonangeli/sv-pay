@@ -14,6 +14,7 @@ public sealed class PaginationQueryValidator : AbstractValidator<PaginationQuery
 
         RuleFor(x => x.PageSize)
             .GreaterThanOrEqualTo(1)
+            .WithError(GlobalSharedErrors.InvalidPageSize)
             .LessThanOrEqualTo(100)
             .WithError(GlobalSharedErrors.InvalidPageSize);
     }

@@ -12,7 +12,7 @@ public readonly record struct Money : IComparable<Money>
     }
 
     [JsonConstructor]
-    public Money(long cents)
+    public Money(long cents, decimal amount)
     {
         Cents = cents;
     }

@@ -25,7 +25,7 @@ internal sealed class GetAllTransactionsByPeriodHandler(IPaymentsDbContext conte
                 (t.AccountId == request.AccountId || t.RelatedAccountId == request.AccountId) &&
                 t.Date >= request.StartDate &&
                 t.Date <= request.EndDate)
-            .OrderByDescending(t => t.Date)
+            .OrderBy(t => t.Date)
             .Skip(request.PageSize * (request.Page - 1))
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);

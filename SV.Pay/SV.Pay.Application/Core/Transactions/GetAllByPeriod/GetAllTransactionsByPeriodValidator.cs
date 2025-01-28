@@ -13,11 +13,13 @@ public sealed class GetAllTransactionsByPeriodValidator : AbstractValidator<GetA
 
         RuleFor(x => x.StartDate)
             .NotEmpty()
+            .WithError(TransactionErrors.InvalidPeriodDate)
             .LessThanOrEqualTo(x => x.EndDate)
             .WithError(TransactionErrors.InvalidPeriodDate);
 
         RuleFor(x => x.EndDate)
             .NotEmpty()
+            .WithError(TransactionErrors.InvalidPeriodDate)
             .GreaterThanOrEqualTo(x => x.StartDate)
             .WithError(TransactionErrors.InvalidPeriodDate);
 
