@@ -837,3 +837,5 @@ fabric.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,csharp,visualstudio,rider,nextjs,node
+
+SV.Pay/.idea/.idea.SV.Pay/Docker
