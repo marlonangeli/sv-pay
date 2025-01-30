@@ -24,7 +24,7 @@ internal sealed class UsersEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Create a new user")
-            .WithDisplayName("CreateUser")
+            .WithName("CreateUser")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesErrors();
 
@@ -49,7 +49,7 @@ internal sealed class UsersEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get user by email or CPF")
-            .WithDisplayName("SearchUser")
+            .WithName("SearchUser")
             .Produces<User>()
             .ProducesErrors();
 
@@ -61,7 +61,7 @@ internal sealed class UsersEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get user by ID")
-            .WithDisplayName("GetUserById")
+            .WithName("GetUserById")
             .Produces<User>()
             .ProducesBadRequest()
             .ProducesNotFound()

@@ -20,13 +20,15 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 WebApplication app = builder.Build();
 
+app.UseCors();
+app.UseRouting();
+
 var group = app.MapGroup("api/v1");
 app.MapEndpoints(group);
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerOpenApi();
 
     app.ApplyMigrations();
 }

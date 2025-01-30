@@ -25,7 +25,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Deposit money to account")
-            .WithDisplayName("Deposit")
+            .WithName("Deposit")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesErrors();
 
@@ -37,7 +37,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Withdraw money from account")
-            .WithDisplayName("Withdraw")
+            .WithName("Withdraw")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesErrors();
 
@@ -49,7 +49,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Transfer money between accounts")
-            .WithDisplayName("Transfer")
+            .WithName("Transfer")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesErrors();
 
@@ -60,7 +60,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get transaction by id")
-            .WithDisplayName("GetTransactionById")
+            .WithName("GetTransactionById")
             .Produces<Transaction>()
             .ProducesNotFound()
             .ProducesInternalServerError();
@@ -81,7 +81,7 @@ internal sealed class TransactionsEndpoints : IEndpoint
                     return result.Match(Results.Ok, CustomResults.Problem);
                 })
             .WithDescription("Get transactions for account")
-            .WithDisplayName("GetTransactionsByPeriod")
+            .WithName("GetTransactionsByPeriod")
             .Produces<Pagination<Transaction>>()
             .ProducesBadRequest()
             .ProducesNotFound()

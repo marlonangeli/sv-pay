@@ -26,7 +26,7 @@ internal sealed class AccountsEndpoints : IEndpoint
                     CustomResults.Problem);
             })
             .WithDescription("Create a new account")
-            .WithDisplayName("CreateAccount")
+            .WithName("CreateAccount")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesBadRequest()
             .ProducesConflict()
@@ -40,7 +40,7 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .Produces(StatusCodes.Status204NoContent)
             .WithDescription("Block or unblock an account")
-            .WithDisplayName("BlockAccount")
+            .WithName("BlockAccount")
             .ProducesErrors();
 
         group.MapPut("/inactive", async (InactiveAccountCommand command, ISender sender, CancellationToken ct) =>
@@ -51,7 +51,7 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .Produces(StatusCodes.Status204NoContent)
             .WithDescription("Inactive or active an account")
-            .WithDisplayName("InactiveAccount")
+            .WithName("InactiveAccount")
             .ProducesErrors();
 
         group.MapPut("/limit", async (ChangeDailyLimitCommand command, ISender sender, CancellationToken ct) =>
@@ -62,7 +62,7 @@ internal sealed class AccountsEndpoints : IEndpoint
             })
             .Produces(StatusCodes.Status204NoContent)
             .WithDescription("Change daily limit of an account")
-            .WithDisplayName("ChangeDailyLimit")
+            .WithName("ChangeDailyLimit")
             .ProducesErrors();
 
         group.MapGet("/{accountId}", async (Guid accountId, ISender sender, CancellationToken ct) =>
@@ -72,7 +72,7 @@ internal sealed class AccountsEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get account details by id")
-            .WithDisplayName("GetAccountById")
+            .WithName("GetAccountById")
             .Produces<Account>()
             .ProducesBadRequest()
             .ProducesNotFound()
@@ -91,7 +91,7 @@ internal sealed class AccountsEndpoints : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .WithDescription("Get monthly extract of an account")
-            .WithDisplayName("GetMonthlyAccountExtract")
+            .WithName("GetMonthlyAccountExtract")
             .Produces<MonthlyAccountExtract>()
             .ProducesErrors();
     }
