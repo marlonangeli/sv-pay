@@ -62,7 +62,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
         items: user.accounts?.map((account: Account) => {
           return {
             title: account.name,
-            url: `/dashboard/accounts/${account.id}`,
+            url: `/accounts/${account.id}`,
           };
         }) || [],
       },
@@ -74,7 +74,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "Limits",
-            url: "/dashboard/settings/limits",
+            url: "/settings/limits",
           }
         ]
       }

@@ -1,15 +1,15 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 import { accountStatusEnum, useGetUserById } from "@/http/generated";
-import { useAccountsTransactions } from "@/hooks/use-accounts-transactions";
+import { useAccountsTransactions } from "@/hooks/use-accounts-transactions.tsx";
 import { Loader2, Plus, Wallet, Users, Activity } from "lucide-react";
 import Link from "next/link";
-import { MetricCard } from "@/components/dashboard/metric-card";
-import { AccountBalanceChart } from "@/components/account/account-balance-chart";
-import { RecentTransactions } from "@/components/dashboard/recent-transactions";
-import { formatCurrency } from "@/lib/utils";
-import {AccountSummary} from "@/components/account/account-summary";
+import { MetricCard } from "@/components/dashboard/metric-card.tsx";
+import { AccountBalanceChart } from "@/components/account/account-balance-chart.tsx";
+import { RecentTransactions } from "@/components/dashboard/recent-transactions.tsx";
+import { formatCurrency } from "@/lib/utils.ts";
+import {AccountSummary} from "@/components/account/account-summary.tsx";
 
 const EmptyState = () => (
   <div className="flex flex-col items-center justify-center p-8 text-center">

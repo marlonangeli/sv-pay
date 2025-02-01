@@ -21,6 +21,8 @@ internal sealed class GetAllTransactionsByPeriodHandler(IPaymentsDbContext conte
 
         var transactions = await context.Transactions
             .AsNoTracking()
+            .Include(t => t.RelatedAccount)
+            .Include(t => t.Account)
             .Where(t =>
                 (t.AccountId == request.AccountId || t.RelatedAccountId == request.AccountId) &&
                 t.Date >= request.StartDate &&

@@ -37,11 +37,11 @@ export const TransactionRow = ({ transaction, accounts }: TransactionRowProps) =
       </TableCell>
       <TableCell>
         <div className="flex items-center gap-2">
-          <span className="font-medium">{sourceAccount?.name}</span>
+          <span className="font-medium">{transaction.account?.name}</span>
           {transaction.type === transactionTypeEnum.Transfer && (
             <>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
-              <span className="font-medium">{targetAccount?.name}</span>
+              <span className="font-medium">{transaction.relatedAccount?.name}</span>
             </>
           )}
         </div>

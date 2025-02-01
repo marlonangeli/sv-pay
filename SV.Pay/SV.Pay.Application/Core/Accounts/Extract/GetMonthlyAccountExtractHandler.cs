@@ -69,6 +69,8 @@ internal sealed class GetMonthlyAccountExtractHandler(IPaymentsDbContext context
     {
         var transactionsPreviousEndDate = await context.Transactions
             .AsNoTracking()
+            .Include(t => t.RelatedAccount)
+            .Include(t => t.Account)
             .Where(GetAccountTransactionsPredicate(accountId, endDate))
             .OrderBy(o => o.Date)
             .ToListAsync(cancellationToken);

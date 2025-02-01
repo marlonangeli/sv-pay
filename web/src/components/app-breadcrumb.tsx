@@ -14,9 +14,14 @@ import {usePathname} from "next/navigation";
 export default function AppBreadcrumb() {
 
   const pathName = usePathname();
-  let currentPage;
-  if (pathName === "/dashboard") currentPage = undefined;
-  else currentPage = pathName.replace(/-/g, " ").replace("/", "").replace(/\b\w/g, (c) => c.toUpperCase());
+  let currentPage: string | undefined;
+  if (pathName === "/dashboard"){
+    currentPage = undefined;
+  }
+  else {
+    currentPage = pathName.split("/").at(1);
+    currentPage = currentPage!.replace(/-/g, " ").replace("/", "").replace(/\b\w/g, (c) => c.toUpperCase());
+  }
 
   return (
     <Breadcrumb>
