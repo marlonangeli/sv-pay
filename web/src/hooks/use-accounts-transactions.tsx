@@ -1,45 +1,53 @@
-import {useQueries} from '@tanstack/react-query';
-import {Account, Transaction, useGetTransactionsByPeriod} from "@/http/generated";
-import {useMemo} from 'react';
+import {Account, getTransactionsByPeriod, Transaction} from "@/http/generated";
+import {useQueries} from "@tanstack/react-query";
+import {useMemo} from "react";
 
 export const useAccountsTransactions = (accounts: Account[]) => {
   const queries = useQueries({
     queries: accounts.map((account) => ({
       queryKey: ['transactions', account.id],
-      queryFn: () => useGetTransactionsByPeriod({accountId: account.id!}, {
-        page: 1,
-        pageSize: 5,
-        startDate: new Date(new Date().setDate(new Date().getDay() - 10)),
-        endDate: new Date()
-      }),
-    }))
+      queryFn: () =>
+        getTransactionsByPeriod(
+          { accountId: account.id! },
+          {
+            page: 1,
+            pageSize: 5,
+            startDate: new Date(new Date().setUTCDate(new Date().getUTCDate() - 10)),
+            endDate: new Date(),
+          }
+        ),
+    })),
   });
 
-  const transactions = useMemo(() => {
+  const transactionsMemo = useMemo(() => {
     const allTransactions: Transaction[] = [];
-    queries.forEach(query => {
-      if (query.data?.data?.data.items) {
-        allTransactions.push(...query.data.data.data.items);
+    queries.forEach((query) => {
+      if (query.data?.data.items) {
+        allTransactions.push(...query.data.data.items);
       }
     });
-
-    // Sort transactions by date (most recent first)
-    return allTransactions.sort((a, b) =>
-      new Date(b.date!).getTime() - new Date(a.date!).getTime()
+    return allTransactions.sort(
+      (a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()
     );
   }, [queries]);
 
-  const isLoading = queries.some(query => query.isLoading);
-  const isError = queries.some(query => query.isError);
-  const errors = queries
-    .filter(query => query.error)
-    .map(query => query.error);
+  // check for duplicates
+  const seen = new Set();
+  const transactions = transactionsMemo.filter((transaction) => {
+    const duplicate = seen.has(transaction.id);
+    seen.add(transaction.id);
+    return !duplicate;
+  });
+
+  const isLoading = queries.some((query) => query.isLoading);
+  const isError = queries.some((query) => query.isError);
+  const errors = queries.filter((query) => query.error).map((query) => query.error);
 
   return {
     transactions,
     isLoading,
     isError,
     errors,
-    queries
+    queries,
   };
 };

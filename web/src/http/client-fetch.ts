@@ -25,9 +25,15 @@ export const client = async <TData, TError = unknown, TVariables = unknown>(conf
 
   Object.entries(config.params || {}).forEach(([key, value]) => {
     if (value !== undefined) {
-      url.searchParams.append(key, value === null ? 'null' : value.toString())
+      let formattedValue;
+      if (value instanceof Date) {
+        formattedValue = value.toISOString();
+      } else {
+        formattedValue = value === null ? 'null' : value.toString();
+      }
+      url.searchParams.append(key, formattedValue);
     }
-  })
+  });
 
   config.headers = {
     'Content-Type': 'application/json',
