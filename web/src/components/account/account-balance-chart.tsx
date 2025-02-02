@@ -18,7 +18,7 @@ export const AccountBalanceChart = ({ accounts }: AccountBalanceChartProps) => {
   const chartConfig = accounts.reduce((config, account, index) => {
     return {
       ...config,
-      [account.name!]: {
+      [account.id!]: {
         label: account.name,
         color: `hsl(var(--chart-${(index % 5) + 1}))`,
       },

@@ -62,6 +62,7 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
         isActive: !isPending,
         items: user.accounts?.map((account: Account) => {
           return {
+            key: account.id,
             title: account.name,
             url: `/account/${account.id}`,
           };
@@ -73,10 +74,12 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
         isActive: true,
         items: [
           {
+            key: "new-account",
             title: "New Account",
             url: "/account/new",
           },
           {
+            key: "new-transaction",
             title: "New Transaction",
             url: "/transaction/new",
           },

@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import React from "react";
 import {cn} from "@/lib/utils.ts";
 import {Toaster} from "@/components/ui/sonner";
+import AppQueryClient from "@/components/app-query-client.tsx";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({children}: Readonly<{
     <body
       className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`)}
     >
-    {children}
+    <AppQueryClient>
+      {children}
+    </AppQueryClient>
     <Toaster/>
     </body>
     </html>

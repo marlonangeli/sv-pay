@@ -21,7 +21,7 @@ const TransactionTypeIcon = ({ type }: { type: TransactionType }) => {
 
 export const TransactionRow = ({ transaction }: TransactionRowProps) => {
   return (
-    <TableRow>
+    <TableRow key={transaction.id}>
       <TableCell>{new Date(transaction.date!).toLocaleDateString()}</TableCell>
       <TableCell>
         <Link

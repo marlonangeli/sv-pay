@@ -20,6 +20,7 @@ export interface NavMainProps {
     icon: LucideIcon
     isActive?: boolean
     items?: {
+      key: string
       title: string
       url: string
     }[]
@@ -51,7 +52,7 @@ export function NavMain({items}: NavMainProps) {
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubItem key={subItem.key}>
                           <SidebarMenuSubButton asChild>
                             <a href={subItem.url}>
                               <span>{subItem.title}</span>
