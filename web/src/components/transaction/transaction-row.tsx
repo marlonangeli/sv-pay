@@ -19,16 +19,13 @@ const TransactionTypeIcon = ({ type }: { type: TransactionType }) => {
   return icons[type] || null;
 };
 
-export const TransactionRow = ({ transaction, accounts }: TransactionRowProps) => {
-  const sourceAccount = accounts.find(account => account.id === transaction.accountId);
-  const targetAccount = accounts.find(account => account.id === transaction.relatedAccountId);
-
+export const TransactionRow = ({ transaction }: TransactionRowProps) => {
   return (
     <TableRow>
       <TableCell>{new Date(transaction.date!).toLocaleDateString()}</TableCell>
       <TableCell>
         <Link
-          href={`/transactions/${transaction.id}`}
+          href={`/transaction/${transaction.id}`}
           className="group flex items-center gap-2 transition-colors hover:text-primary"
         >
           {transaction.description}

@@ -1,5 +1,7 @@
+'use client'
+
 import * as React from "react"
-import {Banknote, Home, PiggyBank, Settings2,} from "lucide-react"
+import {Banknote, Home, PiggyBank, HeartHandshake, Settings2,} from "lucide-react"
 
 import {NavMain, NavMainProps} from "@/components/nav-main"
 import {NavUser, NavUserProps} from "@/components/nav-user"
@@ -14,10 +16,10 @@ import {
 } from "@/components/ui/sidebar"
 import {Account, useGetUserById} from "@/http/generated";
 import Link from "next/link";
+import {NavSecondary, NavSecondaryProps} from "@/components/nav-secondary";
 
-export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({userId, ...props}: { userId: string } & React.ComponentProps<typeof Sidebar>) {
 
-  const userId = localStorage.getItem("userId");
   const {data, isPending} = useGetUserById({userId: userId!});
 
   if (isPending)
@@ -56,27 +58,29 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: "Accounts",
-        url: "/dashboard",
         icon: PiggyBank,
         isActive: !isPending,
         items: user.accounts?.map((account: Account) => {
           return {
             title: account.name,
-            url: `/accounts/${account.id}`,
+            url: `/account/${account.id}`,
           };
         }) || [],
       },
       {
         title: "Settings",
-        url: "/dashboard",
         icon: Settings2,
         isActive: true,
         items: [
           {
-            title: "Limits",
-            url: "/settings/limits",
-          }
-        ]
+            title: "New Account",
+            url: "/account/new",
+          },
+          {
+            title: "New Transaction",
+            url: "/transaction/new",
+          },
+        ],
       }
     ],
   } as NavMainProps;
@@ -88,6 +92,16 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
       initials: user.firstName!.charAt(0) + user.lastName!.charAt(0),
     }
   } as NavUserProps;
+
+  const navSecondary = {
+    items: [
+      {
+        title: "Thanks",
+        url: "/thanks",
+        icon: HeartHandshake,
+      },
+    ],
+  } as NavSecondaryProps;
 
 
   return (
@@ -112,6 +126,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain.items}/>
+        <NavSecondary items={navSecondary.items} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={navUser.user}/>

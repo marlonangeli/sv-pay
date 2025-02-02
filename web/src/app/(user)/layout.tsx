@@ -1,25 +1,21 @@
-'use client'
-
 import {AppSidebar} from "@/components/app-sidebar.tsx";
 import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
 import React from "react";
 import AppBreadcrumb from "@/components/app-breadcrumb.tsx";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {useRouter} from "next/navigation";
+import {redirect} from "next/navigation";
+import {getUserIdFromServer} from "@/lib/cookies.ts";
+import AppQueryClient from "@/components/app-query-client.tsx";
 
-export default function DashboardLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+export default async function DashboardLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+  const userId = await getUserIdFromServer();
 
-  const queryClient = new QueryClient();
-  const router = useRouter();
-  const userId = localStorage.getItem("userId");
-  if (!userId)
-    router.push("/");
+  if (!userId) redirect("/");
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <AppQueryClient>
       <SidebarProvider>
-        <AppSidebar/>
+        <AppSidebar userId={userId} />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 sticky top-0 z-10 bg-background rounded-t-2xl shadow-sm px-4">
             <div className="flex items-center gap-2 px-4">
@@ -31,6 +27,6 @@ export default function DashboardLayout({children}: Readonly<{ children: React.R
           {children}
         </SidebarInset>
       </SidebarProvider>
-    </QueryClientProvider>
+    </AppQueryClient>
   );
 }

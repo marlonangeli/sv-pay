@@ -26,9 +26,7 @@ export interface NavMainProps {
   }[]
 }
 
-export function NavMain({
-                          items,
-                        }: NavMainProps) {
+export function NavMain({items}: NavMainProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>

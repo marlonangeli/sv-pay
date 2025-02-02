@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from "@/components/ui/sidebar"
+import {deleteUserIdCookieInServer} from "@/lib/cookies.ts";
 
 export interface NavUserProps {
   user: {
@@ -68,9 +69,9 @@ export function NavUser({user}: NavUserProps) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator/>
-            <DropdownMenuItem onClick={() => {
-              localStorage.removeItem("userId")
-              window.location.reload()
+            <DropdownMenuItem onClick={async () => {
+              await deleteUserIdCookieInServer();
+              window.location.reload();
             }}
             >
               <LogOut/>

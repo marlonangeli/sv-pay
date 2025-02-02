@@ -23,7 +23,7 @@ export const AccountSummary = ({ accounts }: AccountSummaryProps) => (
               <div className="space-y-1">
                 <div className="flex items-center">
                   <div className={`h-3 w-3 rounded-full mr-2 bg-chart-${(index % 5) + 1}`} />
-                  <Link href={`/accounts/${account.id}`} className="text-sm font-medium hover:underline">
+                  <Link href={`/account/${account.id}`} className="text-sm font-medium hover:underline">
                     {account.name}
                   </Link>
                   {account.status !== accountStatusEnum.Active && (
