@@ -12,6 +12,7 @@ internal sealed class GetAccountByIdHandler(IPaymentsDbContext context) : IQuery
     {
         var account = await context.Accounts
             .AsNoTracking()
+            .Include(a => a.User)
             .FirstOrDefaultAsync(a => a.Id == request.AccountId, cancellationToken);
 
         if (account is null)

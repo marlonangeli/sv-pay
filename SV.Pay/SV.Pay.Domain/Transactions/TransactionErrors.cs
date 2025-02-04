@@ -55,4 +55,8 @@ public static class TransactionErrors
     public static readonly Error InvalidPeriodInterval = Error.Problem(
         "Transactions.InvalidPeriodInterval",
         "The period interval must be less than 1 year");
+
+    public static readonly Error AccountIdAndRelatedAccountIdCantBeTheSame = Error.Problem(
+        "Transactions.AccountIdAndRelatedAccountIdCantBeTheSame",
+        "AccountId and RelatedAccountId cant be the same");
 }

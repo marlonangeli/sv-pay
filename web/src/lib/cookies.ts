@@ -10,6 +10,8 @@ export async function getUserIdFromServer() {
 }
 
 export async function setUserIdCookieInServer(userId: string) {
+  await deleteUserIdCookieInServer();
+
   const cookieStore = await cookies();
   cookieStore.set('userId', userId, {
     sameSite: 'strict',

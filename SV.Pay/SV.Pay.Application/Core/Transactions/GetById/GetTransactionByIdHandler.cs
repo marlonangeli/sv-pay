@@ -13,6 +13,10 @@ internal sealed class GetTransactionByIdHandler(IPaymentsDbContext context)
     {
         var transaction = await context.Transactions
             .AsNoTracking()
+            .Include(t => t.Account)
+            .ThenInclude(t => t.User)
+            .Include(t => t.RelatedAccount)
+            .ThenInclude(t => t.User)
             .Where(t => t.Id == request.TransactionId)
             .FirstOrDefaultAsync(cancellationToken);
 

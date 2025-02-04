@@ -11,7 +11,7 @@ export const useAccountsTransactions = (accounts: Account[]) => {
           { accountId: account.id! },
           {
             page: 1,
-            pageSize: 5,
+            pageSize: 10,
             startDate: new Date(new Date().setUTCDate(new Date().getUTCDate() - 10)),
             endDate: new Date(),
           }

@@ -27,7 +27,7 @@ internal sealed class SearchUserHandler(IPaymentsDbContext context) : IQueryHand
 
         return user is not null
             ? Result.Success(user)
-            : Result.Failure<User>(UserErrors.CPFNotFound(request.CPF));
+            : Result.Failure<User>(UserErrors.CPFNotFound(new CPF(request.CPF).FormattedValue));
     }
 
     private IQueryable<User> GetUserQuery()

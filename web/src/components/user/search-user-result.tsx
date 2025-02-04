@@ -1,17 +1,14 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ArrowRight } from "lucide-react";
-import { useState } from "react";
 
-export const UserResult = ({ user, error, onClick }: {
+export const SearchUserResult = ({ user, error, onClick }: {
   user?: { name: string; email: string; cpf: string, initials: string },
   error?: string,
   onClick?: () => void
 }) => {
-  const [hovered, setHovered] = useState(false);
 
   if (error) {
     return (
-      <div className="rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground">
+      <div className="mt-4 rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground">
         {error}
       </div>
     );
@@ -21,24 +18,21 @@ export const UserResult = ({ user, error, onClick }: {
 
   return (
     <div
-      className="flex items-center gap-2 rounded-lg bg-muted/50 p-3 cursor-pointer hover:bg-muted/70 transition-all"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="mt-4 flex items-center gap-2 rounded-lg bg-muted/50 p-3 cursor-pointer hover:bg-muted/80"
       onClick={() => {
         if (onClick) onClick();
       }}
     >
-      <Avatar className="h-10 w-10 rounded-lg">
+      <Avatar className="h-10 w-10 rounded-lg mr-2">
         <AvatarFallback className="rounded-lg bg-primary text-primary-foreground">
           {user.initials}
         </AvatarFallback>
       </Avatar>
-      <div className="grid flex-1 text-left text-sm leading-tight">
+      <div className="grid flex-auto text-left text-sm leading-tight">
         <span className="truncate font-semibold">{user.name}</span>
         <span className="truncate text-xs text-muted-foreground">{user.email}</span>
         <span className="truncate text-xs text-muted-foreground">{user.cpf}</span>
       </div>
-      <ArrowRight className={`transition-transform duration-200 ${hovered ? "translate-x-1" : ""}`} />
     </div>
   );
 };

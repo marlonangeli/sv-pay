@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from "@/components/ui/sidebar"
 import {deleteUserIdCookieInServer} from "@/lib/cookies.ts";
+import {useQueryClient} from "@tanstack/react-query";
 
 export interface NavUserProps {
   user: {
@@ -22,7 +23,7 @@ export interface NavUserProps {
 }
 
 export function NavUser({user}: NavUserProps) {
-
+  const queryClient = useQueryClient()
   const {isMobile} = useSidebar()
 
   return (
@@ -71,6 +72,7 @@ export function NavUser({user}: NavUserProps) {
             <DropdownMenuSeparator/>
             <DropdownMenuItem onClick={async () => {
               await deleteUserIdCookieInServer();
+              queryClient.clear();
               window.location.reload();
             }}
             >
