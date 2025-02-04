@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Account, accountStatusEnum } from "@/http/generated";
 import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge.tsx";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 interface AccountSummaryProps {

@@ -66,9 +66,8 @@ export default function CreateTransactionPage({userId}: { userId: string }) {
     resolver: zodResolver(transactionSchema),
     defaultValues: {
       relatedAccountId: '',
-      date: new Date(),
       amount: 0,
-      description: ''
+      description: '',
     }
   })
 
@@ -227,7 +226,7 @@ export default function CreateTransactionPage({userId}: { userId: string }) {
                           onValueChange={(value: TransactionType) => {
                             field.onChange(value)
                             setSelectedType(value)
-                            form.setValue('relatedAccountId', '')
+                            form.resetField('relatedAccountId')
                             setDestinationUser(null)
                             setDestinationAccounts([])
                             setExpandedSection(null)

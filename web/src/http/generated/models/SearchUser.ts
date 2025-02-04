@@ -1,4 +1,4 @@
-import type {GetUserByEmailOrCPFRequest} from './GetUserByEmailOrCPFRequest.ts'
+import type {GetUserByEmailOrCPFRequest} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 import type {User} from './User.ts'
 

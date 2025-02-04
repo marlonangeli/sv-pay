@@ -10,8 +10,8 @@ import type {
   GetMonthlyAccountExtractPathParams,
   GetMonthlyAccountExtractQueryParams,
   GetMonthlyAccountExtractQueryResponse,
-} from '../models/GetMonthlyAccountExtract.ts'
-import {getMonthlyAccountExtract} from '../client/getMonthlyAccountExtract.ts'
+} from '@/http/generated'
+import {getMonthlyAccountExtract} from '@/http/generated'
 
 export const getMonthlyAccountExtractQueryKey = (
   {accountId}: { accountId: GetMonthlyAccountExtractPathParams['accountId'] },

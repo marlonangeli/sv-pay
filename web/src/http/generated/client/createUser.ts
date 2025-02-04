@@ -7,7 +7,7 @@ import type {
   CreateUser500,
   CreateUserMutationRequest,
   CreateUserMutationResponse
-} from '../models/CreateUser.ts'
+} from '@/http/generated'
 
 export function getCreateUserUrl() {
   return `/api/v1/users` as const

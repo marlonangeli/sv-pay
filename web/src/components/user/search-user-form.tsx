@@ -42,7 +42,7 @@ type SearchUserFormProps = {
   onError: (error: ProblemDetails) => void
 }
 
-export const SearchUserForm = ({onUserFound, onError}: SearchUserFormProps) => {
+export function SearchUserForm({onUserFound, onError}: SearchUserFormProps) {
 
   const {mutate: searchUser, isPending} = useSearchUser({
     mutation: {
@@ -158,4 +158,4 @@ export const SearchUserForm = ({onUserFound, onError}: SearchUserFormProps) => {
       </form>
     </Form>
   );
-};
+}

@@ -1,4 +1,4 @@
-import type {MonthlyAccountExtract} from './MonthlyAccountExtract.ts'
+import type {MonthlyAccountExtract} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 export type GetMonthlyAccountExtractPathParams = {

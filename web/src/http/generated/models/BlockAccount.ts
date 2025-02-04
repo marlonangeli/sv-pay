@@ -1,10 +1,10 @@
-import type {BlockAccountCommand} from './BlockAccountCommand.ts'
+import type {BlockAccountCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**
  * @description No Content
  */
-export type BlockAccount204 = any
+export type BlockAccount204 = never
 
 /**
  * @description Bad Request

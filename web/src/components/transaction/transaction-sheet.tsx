@@ -1,30 +1,16 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
-import { Badge } from "@/components/ui/badge"
-import { formatCurrency } from "@/lib/utils"
-import { ArrowDown, ArrowDownUp, ArrowUpRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import {TransactionType, transactionTypeEnum, useGetTransactionById, Account} from "@/http/generated"
-import { getUserIdFromServer } from "@/lib/cookies"
-import { toast } from "sonner"
-
-const TransactionTypeIcon = ({ type }: { type: TransactionType }) => {
-  const icons = {
-    [transactionTypeEnum.Deposit]: <ArrowUpRight className="h-5 w-5 text-green-500" />,
-    [transactionTypeEnum.Withdraw]: <ArrowDown className="h-5 w-5 text-red-500" />,
-    [transactionTypeEnum.Transfer]: <ArrowDownUp className="h-5 w-5 text-blue-500" />,
-  }
-  return icons[type] || null
-}
+import {useRouter} from 'next/navigation'
+import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle,} from "@/components/ui/sheet"
+import {Badge} from "@/components/ui/badge"
+import {formatCurrency} from "@/lib/utils"
+import {ArrowDown} from "lucide-react"
+import {Button} from "@/components/ui/button"
+import {Skeleton} from "@/components/ui/skeleton"
+import {Account, transactionTypeEnum, useGetTransactionById} from "@/http/generated"
+import {getUserIdFromServer} from "@/lib/cookies"
+import {toast} from "sonner"
+import TransactionTypeIcon from "@/components/transaction/transaction-type-icon";
 
 interface TransactionSheetProps {
   isOpen: boolean
@@ -32,10 +18,10 @@ interface TransactionSheetProps {
   transactionId: string
 }
 
-export function TransactionSheet({ isOpen, onCloseAction, transactionId }: TransactionSheetProps) {
+export function TransactionSheet({isOpen, onCloseAction, transactionId}: TransactionSheetProps) {
   const router = useRouter()
 
-  const { data: transaction, isLoading } = useGetTransactionById({
+  const {data: transaction, isLoading} = useGetTransactionById({
     transactionId
   }, {
     query: {
@@ -76,7 +62,7 @@ export function TransactionSheet({ isOpen, onCloseAction, transactionId }: Trans
     return (
       <div className="flex flex-col items-center gap-2">
         {renderAccountInfo(transaction!.account!)}
-        <ArrowDown className="h-6 w-6 text-muted-foreground" />
+        <ArrowDown className="h-6 w-6 text-muted-foreground"/>
         {renderAccountInfo(transaction!.relatedAccount!)}
       </div>
     )
@@ -90,7 +76,7 @@ export function TransactionSheet({ isOpen, onCloseAction, transactionId }: Trans
         <SheetHeader className="pr-8">
           <div className="flex items-center justify-between">
             <SheetTitle>Transaction Details</SheetTitle>
-            {transaction && <TransactionTypeIcon type={transaction.type!} />}
+            {transaction && <TransactionTypeIcon type={transaction.type!}/>}
           </div>
           <SheetDescription>
             View detailed information about this transaction
@@ -99,7 +85,7 @@ export function TransactionSheet({ isOpen, onCloseAction, transactionId }: Trans
 
         <div className="mt-6 space-y-6">
           {isLoading ? (
-            <TransactionDetailsSkeleton />
+            <TransactionDetailsSkeleton/>
           ) : transaction ? (
             <>
               <div className="rounded-lg border p-4">
@@ -161,22 +147,22 @@ function TransactionDetailsSkeleton() {
     <div className="space-y-6">
       <div className="rounded-lg border p-4">
         <div className="mb-4 flex items-center justify-between">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-8 w-32" />
+          <Skeleton className="h-6 w-24"/>
+          <Skeleton className="h-8 w-32"/>
         </div>
         <div className="space-y-4">
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-20 w-full"/>
+          <Skeleton className="h-20 w-full"/>
         </div>
       </div>
       <div className="space-y-4">
         <div>
-          <Skeleton className="h-4 w-24 mb-2" />
-          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-4 w-24 mb-2"/>
+          <Skeleton className="h-12 w-full"/>
         </div>
         <div className="space-y-2">
-          <Skeleton className="h-4 w-32" />
-          <Skeleton className="h-4 w-48" />
+          <Skeleton className="h-4 w-32"/>
+          <Skeleton className="h-4 w-48"/>
         </div>
       </div>
     </div>

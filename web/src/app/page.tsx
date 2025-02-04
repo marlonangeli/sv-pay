@@ -1,39 +1,39 @@
 'use client'
 
 import React from 'react';
-import { AccountSummary } from '@/components/account/account-summary';
-import { AccountBalanceChart } from '@/components/account/account-balance-chart';
-import { Account } from '@/http/generated';
-import AppHeader from "@/components/app-header.tsx";
+import {AccountSummary} from '@/components/account/account-summary';
+import {AccountBalanceChart} from '@/components/account/account-balance-chart';
+import {Account} from '@/http/generated';
+import AppHeader from "@/components/app-header";
 
-const SVPayLanding = () => {
+export default function SVPayLanding() {
   const fakeAccounts = [
     {
       id: '1',
       name: 'Main Account',
       type: 'Digital',
       status: 'Active',
-      balance: { amount: 4800 },
+      balance: {amount: 4800},
     },
     {
       id: '2',
       name: 'Savings',
       type: 'Digital',
       status: 'Inactive',
-      balance: { amount: 600 },
+      balance: {amount: 600},
     },
     {
       id: '3',
       name: 'Investment',
       type: 'Investment',
       status: 'Active',
-      balance: { amount: 7300 },
+      balance: {amount: 7300},
     }
   ] as Account[];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <AppHeader />
+      <AppHeader/>
 
       <main className="container mx-auto px-4 py-24 flex-grow mt-6">
         <div className="max-w-3xl mx-auto mb-12 text-center">
@@ -55,7 +55,7 @@ const SVPayLanding = () => {
           </section>
           <section>
             <div className="bg-card rounded-xl p-6 shadow-sm h-[400px]">
-              <AccountBalanceChart accounts={fakeAccounts} />
+              <AccountBalanceChart accounts={fakeAccounts}/>
             </div>
           </section>
         </div>
@@ -63,7 +63,7 @@ const SVPayLanding = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-16">
           <section>
             <div className="bg-card rounded-xl p-6 shadow-sm h-[400px] pointer-events-none">
-              <AccountSummary accounts={fakeAccounts} />
+              <AccountSummary accounts={fakeAccounts}/>
             </div>
           </section>
           <section className="flex flex-col justify-center">
@@ -76,17 +76,16 @@ const SVPayLanding = () => {
       </main>
 
       <footer className="border-t py-4 text-center text-sm text-muted-foreground">
-        © 2025 SV Pay | <a href="https://github.com/marlonangeli/sv-pay" className="text-blue-500 hover:underline">GitHub</a>
+        © 2025 SV Pay | <a href="https://github.com/marlonangeli/sv-pay"
+                           className="text-blue-500 hover:underline">GitHub</a>
       </footer>
     </div>
   );
 };
 
-const SectionHeader = ({ title, description }: { title: string; description: string }) => (
+const SectionHeader = ({title, description}: { title: string; description: string }) => (
   <div className="mb-6 space-y-4">
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-muted-foreground">{description}</p>
   </div>
 );
-
-export default SVPayLanding;

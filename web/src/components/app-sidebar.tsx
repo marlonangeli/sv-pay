@@ -1,10 +1,10 @@
 'use client'
 
 import * as React from "react"
-import {Banknote, Home, PiggyBank, HeartHandshake, Settings2,} from "lucide-react"
+import {Banknote, CirclePlus, Home, PiggyBank,} from "lucide-react"
 
 import {NavMain, NavMainProps} from "@/components/nav-main"
-import {NavUser, NavUserProps} from "@/components/nav-user"
+import {NavUser} from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -16,11 +16,14 @@ import {
 } from "@/components/ui/sidebar"
 import {Account, useGetUserById} from "@/http/generated";
 import Link from "next/link";
-import {NavSecondary, NavSecondaryProps} from "@/components/nav-secondary";
 
 export function AppSidebar({userId, ...props}: { userId: string } & React.ComponentProps<typeof Sidebar>) {
 
-  const {data, isPending} = useGetUserById({userId: userId!});
+  const {data: user, isPending} = useGetUserById({userId: userId!}, {
+    query: {
+      select: (response) => response.data
+    }
+  });
 
   if (isPending)
     return (
@@ -46,8 +49,6 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
       </Sidebar>
     );
 
-  const user = data?.data || {};
-
   const navMain = {
     items: [
       {
@@ -60,7 +61,7 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
         title: "Accounts",
         icon: PiggyBank,
         isActive: !isPending,
-        items: user.accounts?.map((account: Account) => {
+        items: user!.accounts?.map((account: Account) => {
           return {
             key: account.id,
             title: account.name,
@@ -69,43 +70,24 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
         }) || [],
       },
       {
-        title: "Settings",
-        icon: Settings2,
+        title: "Create",
+        icon: CirclePlus,
         isActive: true,
         items: [
           {
             key: "new-account",
-            title: "New Account",
+            title: "Account",
             url: "/account/new",
           },
           {
             key: "new-transaction",
-            title: "New Transaction",
+            title: "Transaction",
             url: "/transaction/new",
           },
         ],
       }
     ],
   } as NavMainProps;
-
-  const navUser = {
-    user: {
-      name: user.fullName,
-      email: user.email,
-      initials: user.firstName!.charAt(0) + user.lastName!.charAt(0),
-    }
-  } as NavUserProps;
-
-  const navSecondary = {
-    items: [
-      {
-        title: "Thanks",
-        url: "/thanks",
-        icon: HeartHandshake,
-      },
-    ],
-  } as NavSecondaryProps;
-
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -129,10 +111,9 @@ export function AppSidebar({userId, ...props}: { userId: string } & React.Compon
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain.items}/>
-        <NavSecondary items={navSecondary.items} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={navUser.user}/>
+        <NavUser user={user!}/>
       </SidebarFooter>
     </Sidebar>
   )

@@ -1,7 +1,7 @@
 import {Account, AccountStatus} from "@/http/generated";
 import {formatCurrency} from "@/lib/utils";
 import {Clock, CreditCard, User, Wallet} from "lucide-react";
-import {MetricCard} from "@/components/dashboard/metric-card.tsx";
+import {MetricCard} from "@/components/dashboard/metric-card";
 
 const getStatusColor = (status: AccountStatus) => {
   const colors = {

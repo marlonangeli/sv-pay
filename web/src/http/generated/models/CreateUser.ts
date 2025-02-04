@@ -1,4 +1,4 @@
-import type {CreateUserCommand} from './CreateUserCommand.ts'
+import type {CreateUserCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**

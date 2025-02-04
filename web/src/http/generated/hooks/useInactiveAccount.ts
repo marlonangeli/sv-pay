@@ -9,8 +9,8 @@ import type {
   InactiveAccount500,
   InactiveAccountMutationRequest,
   InactiveAccountMutationResponse,
-} from '../models/InactiveAccount.ts'
-import {inactiveAccount} from '../client/inactiveAccount.ts'
+} from '@/http/generated'
+import {inactiveAccount} from '@/http/generated'
 
 export const inactiveAccountMutationKey = () => [{url: '/api/v1/accounts/inactive'}] as const
 

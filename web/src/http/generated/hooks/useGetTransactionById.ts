@@ -7,8 +7,8 @@ import type {
   GetTransactionById500,
   GetTransactionByIdPathParams,
   GetTransactionByIdQueryResponse,
-} from '../models/GetTransactionById.ts'
-import {getTransactionById} from '../client/getTransactionById.ts'
+} from '@/http/generated'
+import {getTransactionById} from '@/http/generated'
 
 export const getTransactionByIdQueryKey = ({transactionId}: {
   transactionId: GetTransactionByIdPathParams['transactionId']

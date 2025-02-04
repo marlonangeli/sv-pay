@@ -6,7 +6,7 @@ import type {
   GetAccountById500,
   GetAccountByIdPathParams,
   GetAccountByIdQueryResponse,
-} from '../models/GetAccountById.ts'
+} from '@/http/generated'
 
 export function getGetAccountByIdUrl({accountId}: { accountId: GetAccountByIdPathParams['accountId'] }) {
   return `/api/v1/accounts/${accountId}` as const

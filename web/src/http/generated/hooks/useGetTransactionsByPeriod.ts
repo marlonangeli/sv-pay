@@ -9,8 +9,8 @@ import type {
   GetTransactionsByPeriodPathParams,
   GetTransactionsByPeriodQueryParams,
   GetTransactionsByPeriodQueryResponse,
-} from '../models/GetTransactionsByPeriod.ts'
-import {getTransactionsByPeriod} from '../client/getTransactionsByPeriod.ts'
+} from '@/http/generated'
+import {getTransactionsByPeriod} from '@/http/generated'
 
 export const getTransactionsByPeriodQueryKey = (
   {accountId}: { accountId: GetTransactionsByPeriodPathParams['accountId'] },

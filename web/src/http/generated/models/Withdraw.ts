@@ -1,4 +1,4 @@
-import type {CreateWithdrawCommand} from './CreateWithdrawCommand.ts'
+import type {CreateWithdrawCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**

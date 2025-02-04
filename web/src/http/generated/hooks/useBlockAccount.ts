@@ -9,8 +9,8 @@ import type {
   BlockAccount500,
   BlockAccountMutationRequest,
   BlockAccountMutationResponse,
-} from '../models/BlockAccount.ts'
-import {blockAccount} from '../client/blockAccount.ts'
+} from '@/http/generated'
+import {blockAccount} from '@/http/generated'
 
 export const blockAccountMutationKey = () => [{url: '/api/v1/accounts/block'}] as const
 

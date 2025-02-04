@@ -5,8 +5,8 @@ services:
     container_name: sv.api
     image: sv.pay.api:dev
     build:
-      context: SV.Pay/SV.Pay.Api
-      dockerfile: Dockerfile
+      context: api
+      dockerfile: SV.Pay.Api/Dockerfile
     ports:
       - "5001:8081"
       - "5000:8080"
@@ -18,6 +18,21 @@ services:
       - sv-payments
     depends_on:
       - sqlserver
+
+  sv.web:
+    container_name: sv.web
+    image: sv.pay.web:dev
+    build:
+      context: web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5000
+    ports:
+      - "3000:3000"
+    networks:
+      - sv-payments
+    depends_on:
+      - sv.api
 
   sqlserver:
     container_name: sqlserver
@@ -33,7 +48,6 @@ services:
     image: mcr.microsoft.com/azure-sql-edge # -> arm64
     networks:
       - sv-payments
-    # Some access errors running on Windows :/
     volumes:
       - sv-sqlserver-data:/var/opt/mssql
     healthcheck:

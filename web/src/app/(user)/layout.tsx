@@ -1,10 +1,10 @@
-import {AppSidebar} from "@/components/app-sidebar.tsx";
-import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
-import {Separator} from "@/components/ui/separator.tsx";
+import {AppSidebar} from "@/components/app-sidebar";
+import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
+import {Separator} from "@/components/ui/separator";
 import React from "react";
-import AppBreadcrumb from "@/components/app-breadcrumb.tsx";
+import AppBreadcrumb from "@/components/app-breadcrumb";
 import {redirect} from "next/navigation";
-import {getUserIdFromServer} from "@/lib/cookies.ts";
+import {getUserIdFromServer} from "@/lib/cookies";
 
 export default async function DashboardLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   const userId = await getUserIdFromServer();

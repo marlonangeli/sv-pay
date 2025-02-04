@@ -1,4 +1,4 @@
-import type {CreateDepositCommand} from './CreateDepositCommand.ts'
+import type {CreateDepositCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**

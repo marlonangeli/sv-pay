@@ -7,7 +7,7 @@ import type {
   Withdraw500,
   WithdrawMutationRequest,
   WithdrawMutationResponse
-} from '../models/Withdraw.ts'
+} from '@/http/generated'
 
 export function getWithdrawUrl() {
   return `/api/v1/transactions/withdraw` as const

@@ -7,7 +7,7 @@ import type {
   ChangeDailyLimit500,
   ChangeDailyLimitMutationRequest,
   ChangeDailyLimitMutationResponse,
-} from '../models/ChangeDailyLimit.ts'
+} from '@/http/generated'
 
 export function getChangeDailyLimitUrl() {
   return `/api/v1/accounts/limit` as const

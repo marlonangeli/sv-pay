@@ -1,10 +1,10 @@
-import type {InactiveAccountCommand} from './InactiveAccountCommand.ts'
+import type {InactiveAccountCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**
  * @description No Content
  */
-export type InactiveAccount204 = any
+export type InactiveAccount204 = never
 
 /**
  * @description Bad Request

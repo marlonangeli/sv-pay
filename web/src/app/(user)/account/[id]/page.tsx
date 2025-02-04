@@ -1,19 +1,19 @@
 import AccountPage from "@/components/pages/account-page";
-import {getUserIdFromServer} from "@/lib/cookies.ts";
+import {getUserIdFromServer} from "@/lib/cookies";
 import {redirect} from "next/navigation";
 import {getAccountById} from "@/http/generated";
-import {Button} from "@/components/ui/button.tsx";
+import {Button} from "@/components/ui/button";
+import {JSX} from "react";
 
-export default async function AccountServer({params}: { params: { id: string } }) {
+type PageProps = Promise<{ id: string }>;
+
+export default async function AccountServer({params}: { params: PageProps }): Promise<JSX.Element> {
   const userId = await getUserIdFromServer();
   const {id} = await params;
 
   if (!userId) {
     redirect("/");
   }
-
-  console.log(userId, id);
-
 
   const {data: account} = await getAccountById({accountId: id});
 

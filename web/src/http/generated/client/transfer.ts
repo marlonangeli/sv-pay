@@ -7,7 +7,7 @@ import type {
   Transfer500,
   TransferMutationRequest,
   TransferMutationResponse
-} from '../models/Transfer.ts'
+} from '@/http/generated'
 
 export function getTransferUrl() {
   return `/api/v1/transactions/transfer` as const

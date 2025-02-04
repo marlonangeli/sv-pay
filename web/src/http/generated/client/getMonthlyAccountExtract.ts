@@ -8,7 +8,7 @@ import type {
   GetMonthlyAccountExtractPathParams,
   GetMonthlyAccountExtractQueryParams,
   GetMonthlyAccountExtractQueryResponse,
-} from '../models/GetMonthlyAccountExtract.ts'
+} from '@/http/generated'
 
 export function getGetMonthlyAccountExtractUrl({accountId}: {
   accountId: GetMonthlyAccountExtractPathParams['accountId']

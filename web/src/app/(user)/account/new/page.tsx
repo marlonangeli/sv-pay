@@ -1,6 +1,6 @@
-import {getUserIdFromServer} from "@/lib/cookies.ts";
+import {getUserIdFromServer} from "@/lib/cookies";
 import {redirect} from "next/navigation";
-import CreateAccountPage from "@/components/pages/new-account-page.tsx";
+import CreateAccountPage from "@/components/pages/new-account-page";
 
 export default async function CreateAccountServer() {
   const userId = await getUserIdFromServer();
@@ -9,5 +9,5 @@ export default async function CreateAccountServer() {
     redirect("/");
   }
 
-  return <CreateAccountPage userId={userId} />;
+  return <CreateAccountPage userId={userId}/>;
 }

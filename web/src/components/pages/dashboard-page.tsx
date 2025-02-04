@@ -1,15 +1,15 @@
 "use client";
 
-import {Button} from "@/components/ui/button.tsx";
+import {Button} from "@/components/ui/button";
 import {accountStatusEnum, useGetUserById} from "@/http/generated";
-import {useAccountsTransactions} from "@/hooks/use-accounts-transactions.tsx";
+import {useAccountsTransactions} from "@/hooks/use-accounts-transactions";
 import {Activity, Loader2, Plus, Users, Wallet} from "lucide-react";
 import Link from "next/link";
-import {MetricCard} from "@/components/dashboard/metric-card.tsx";
-import {AccountBalanceChart} from "@/components/account/account-balance-chart.tsx";
-import {RecentTransactions} from "@/components/dashboard/recent-transactions.tsx";
-import {formatCurrency} from "@/lib/utils.ts";
-import {AccountSummary} from "@/components/account/account-summary.tsx";
+import {MetricCard} from "@/components/dashboard/metric-card";
+import {AccountBalanceChart} from "@/components/account/account-balance-chart";
+import {RecentTransactions} from "@/components/dashboard/recent-transactions";
+import {formatCurrency} from "@/lib/utils";
+import {AccountSummary} from "@/components/account/account-summary";
 
 export default function DashboardPage({userId}: { userId: string }) {
   const {data: userData, isLoading: isLoadingUser} = useGetUserById(
@@ -56,7 +56,7 @@ export default function DashboardPage({userId}: { userId: string }) {
           </Link>
         </div>
       </div>
-    
+
 
       <div className="grid gap-6 md:grid-cols-3">
         <MetricCard

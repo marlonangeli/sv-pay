@@ -1,4 +1,4 @@
-import type {GetUserRequestType} from './GetUserRequestType.ts'
+import type {GetUserRequestType} from '@/http/generated'
 
 export type GetUserByEmailOrCPFRequest = {
   /**

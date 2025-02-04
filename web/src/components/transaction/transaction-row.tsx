@@ -1,27 +1,19 @@
 import {useState} from 'react'
 import {Badge} from "@/components/ui/badge"
 import {TableCell, TableRow} from "@/components/ui/table"
-import {Account, Transaction, TransactionType, transactionTypeEnum} from "@/http/generated"
-import {ArrowDown, ArrowDownUp, ArrowRight, ArrowUpRight} from "lucide-react"
+import {Account, Transaction, transactionTypeEnum} from "@/http/generated"
+import {ArrowRight} from "lucide-react"
 import {Button} from "@/components/ui/button"
 import {formatCurrency} from "@/lib/utils"
-import {TransactionSheet} from "./transaction-sheet"
+import {TransactionSheet} from "@/components/transaction/transaction-sheet"
+import TransactionTypeIcon from "@/components/transaction/transaction-type-icon";
 
 interface TransactionRowProps {
   transaction: Transaction
   accounts: Account[]
 }
 
-const TransactionTypeIcon = ({type}: { type: TransactionType }) => {
-  const icons = {
-    [transactionTypeEnum.Deposit]: <ArrowUpRight className="h-4 w-4 text-green-500"/>,
-    [transactionTypeEnum.Withdraw]: <ArrowDown className="h-4 w-4 text-red-500"/>,
-    [transactionTypeEnum.Transfer]: <ArrowDownUp className="h-4 w-4 text-blue-500"/>,
-  }
-  return icons[type] || null
-}
-
-export const TransactionRow = ({transaction}: TransactionRowProps) => {
+export function TransactionRow({transaction}: TransactionRowProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   return (

@@ -9,8 +9,8 @@ import type {
   CreateUser500,
   CreateUserMutationRequest,
   CreateUserMutationResponse
-} from '../models/CreateUser.ts'
-import {createUser} from '../client/createUser.ts'
+} from '@/http/generated'
+import {createUser} from '@/http/generated'
 
 export const createUserMutationKey = () => [{url: '/api/v1/users'}] as const
 

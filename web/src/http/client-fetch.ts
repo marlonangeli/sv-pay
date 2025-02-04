@@ -1,5 +1,3 @@
-import {env} from "@/lib/env.ts";
-
 export type RequestConfig<TData = unknown> = {
   baseURL?: string
   url?: string
@@ -21,7 +19,7 @@ export type ResponseConfig<TData = unknown> = {
 export type ResponseErrorConfig<TError = unknown> = TError
 
 export const client = async <TData, TError = unknown, TVariables = unknown>(config: RequestConfig<TVariables>): Promise<ResponseConfig<TData>> => {
-  const url = new URL(`${env.NEXT_PUBLIC_API_URL}${config.url}`)
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${config.url}`)
 
   Object.entries(config.params || {}).forEach(([key, value]) => {
     if (value !== undefined) {

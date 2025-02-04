@@ -9,8 +9,8 @@ import type {
   Transfer500,
   TransferMutationRequest,
   TransferMutationResponse
-} from '../models/Transfer.ts'
-import {transfer} from '../client/transfer.ts'
+} from '@/http/generated'
+import {transfer} from '@/http/generated'
 
 export const transferMutationKey = () => [{url: '/api/v1/transactions/transfer'}] as const
 

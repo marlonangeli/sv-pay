@@ -9,8 +9,8 @@ import type {
   SearchUser500,
   SearchUserMutationRequest,
   SearchUserMutationResponse
-} from '../models/SearchUser.ts'
-import {searchUser} from '../client/searchUser.ts'
+} from '@/http/generated'
+import {searchUser} from '@/http/generated'
 
 export const searchUserMutationKey = () => [{url: '/api/v1/users/search'}] as const
 

@@ -7,7 +7,7 @@ import type {
   Deposit500,
   DepositMutationRequest,
   DepositMutationResponse
-} from '../models/Deposit.ts'
+} from '@/http/generated'
 
 export function getDepositUrl() {
   return `/api/v1/transactions/deposit` as const

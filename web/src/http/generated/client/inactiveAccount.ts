@@ -7,7 +7,7 @@ import type {
   InactiveAccount500,
   InactiveAccountMutationRequest,
   InactiveAccountMutationResponse,
-} from '../models/InactiveAccount.ts'
+} from '@/http/generated'
 
 export function getInactiveAccountUrl() {
   return `/api/v1/accounts/inactive` as const

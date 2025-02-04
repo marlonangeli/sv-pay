@@ -9,8 +9,8 @@ import type {
   GetTransactionsByPeriodPathParams,
   GetTransactionsByPeriodQueryParams,
   GetTransactionsByPeriodQueryResponse,
-} from '../models/GetTransactionsByPeriod.ts'
-import {getTransactionsByPeriod} from '../client/getTransactionsByPeriod.ts'
+} from '@/http/generated'
+import {getTransactionsByPeriod} from '@/http/generated'
 
 export const getTransactionsByPeriodSuspenseQueryKey = (
   {accountId}: { accountId: GetTransactionsByPeriodPathParams['accountId'] },
@@ -49,6 +49,7 @@ export function getTransactionsByPeriodSuspenseQueryOptions(
  */
 export function useGetTransactionsByPeriodSuspense<
   TData = ResponseConfig<GetTransactionsByPeriodQueryResponse>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TQueryData = ResponseConfig<GetTransactionsByPeriodQueryResponse>,
   TQueryKey extends QueryKey = GetTransactionsByPeriodSuspenseQueryKey,
 >(

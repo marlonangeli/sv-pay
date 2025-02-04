@@ -10,8 +10,8 @@ import type {
   GetMonthlyAccountExtractPathParams,
   GetMonthlyAccountExtractQueryParams,
   GetMonthlyAccountExtractQueryResponse,
-} from '../models/GetMonthlyAccountExtract.ts'
-import {getMonthlyAccountExtract} from '../client/getMonthlyAccountExtract.ts'
+} from '@/http/generated'
+import {getMonthlyAccountExtract} from '@/http/generated'
 
 export const getMonthlyAccountExtractSuspenseQueryKey = (
   {accountId}: { accountId: GetMonthlyAccountExtractPathParams['accountId'] },
@@ -50,6 +50,7 @@ export function getMonthlyAccountExtractSuspenseQueryOptions(
  */
 export function useGetMonthlyAccountExtractSuspense<
   TData = ResponseConfig<GetMonthlyAccountExtractQueryResponse>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TQueryData = ResponseConfig<GetMonthlyAccountExtractQueryResponse>,
   TQueryKey extends QueryKey = GetMonthlyAccountExtractSuspenseQueryKey,
 >(

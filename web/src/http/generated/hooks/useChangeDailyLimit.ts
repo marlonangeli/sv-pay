@@ -9,8 +9,8 @@ import type {
   ChangeDailyLimit500,
   ChangeDailyLimitMutationRequest,
   ChangeDailyLimitMutationResponse,
-} from '../models/ChangeDailyLimit.ts'
-import {changeDailyLimit} from '../client/changeDailyLimit.ts'
+} from '@/http/generated'
+import {changeDailyLimit} from '@/http/generated'
 
 export const changeDailyLimitMutationKey = () => [{url: '/api/v1/accounts/limit'}] as const
 

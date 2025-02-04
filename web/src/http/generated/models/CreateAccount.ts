@@ -1,4 +1,4 @@
-import type {CreateAccountCommand} from './CreateAccountCommand.ts'
+import type {CreateAccountCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**

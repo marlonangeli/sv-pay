@@ -1,9 +1,9 @@
-import {Logo} from "@/components/logo.tsx";
-import {Button} from "@/components/ui/button.tsx";
+import {Logo} from "@/components/logo";
+import {Button} from "@/components/ui/button";
 import {UserPlus} from "lucide-react";
 import React from "react";
 import {redirect, RedirectType} from "next/navigation";
-import {SearchUserSheet} from "@/components/user/search-user-sheet.tsx";
+import {SearchUserSheet} from "@/components/user/search-user-sheet";
 
 export default function AppHeader() {
 

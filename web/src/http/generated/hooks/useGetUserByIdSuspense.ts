@@ -8,8 +8,8 @@ import type {
   GetUserById500,
   GetUserByIdPathParams,
   GetUserByIdQueryResponse
-} from '../models/GetUserById.ts'
-import {getUserById} from '../client/getUserById.ts'
+} from '@/http/generated'
+import {getUserById} from '@/http/generated'
 
 export const getUserByIdSuspenseQueryKey = ({userId}: { userId: GetUserByIdPathParams['userId'] }) =>
   [{url: '/api/v1/users/:userId', params: {userId: userId}}] as const
@@ -42,6 +42,7 @@ export function getUserByIdSuspenseQueryOptions(
  */
 export function useGetUserByIdSuspense<
   TData = ResponseConfig<GetUserByIdQueryResponse>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TQueryData = ResponseConfig<GetUserByIdQueryResponse>,
   TQueryKey extends QueryKey = GetUserByIdSuspenseQueryKey,
 >(

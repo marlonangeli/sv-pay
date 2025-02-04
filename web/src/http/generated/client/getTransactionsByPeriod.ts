@@ -7,7 +7,7 @@ import type {
   GetTransactionsByPeriodPathParams,
   GetTransactionsByPeriodQueryParams,
   GetTransactionsByPeriodQueryResponse,
-} from '../models/GetTransactionsByPeriod.ts'
+} from '@/http/generated'
 
 export function getGetTransactionsByPeriodUrl({accountId}: {
   accountId: GetTransactionsByPeriodPathParams['accountId']

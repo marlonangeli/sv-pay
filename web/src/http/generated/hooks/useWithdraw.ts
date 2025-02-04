@@ -9,8 +9,8 @@ import type {
   Withdraw500,
   WithdrawMutationRequest,
   WithdrawMutationResponse
-} from '../models/Withdraw.ts'
-import {withdraw} from '../client/withdraw.ts'
+} from '@/http/generated'
+import {withdraw} from '@/http/generated'
 
 export const withdrawMutationKey = () => [{url: '/api/v1/transactions/withdraw'}] as const
 

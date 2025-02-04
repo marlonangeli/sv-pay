@@ -9,10 +9,11 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/comp
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {accountTypeEnum, useCreateAccount} from '@/http/generated'
+import {accountTypeEnum, getUserByIdQueryKey, useCreateAccount} from '@/http/generated'
 import {toast} from 'sonner'
 import {Loader2} from 'lucide-react'
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+import {useQueryClient} from "@tanstack/react-query";
 
 const formSchema = z.object({
   name: z.string().min(1, {message: "Name is required"}).max(32, {message: "Name must be at most 32 characters"}),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 export default function CreateAccountPage({userId}: { userId: string }) {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,7 +36,10 @@ export default function CreateAccountPage({userId}: { userId: string }) {
 
   const {mutate: createAccount, isPending} = useCreateAccount({
     mutation: {
-      onSuccess: ({data: accountId}) => {
+      onSuccess: async ({data: accountId}) => {
+        await queryClient.invalidateQueries({
+          queryKey: getUserByIdQueryKey({userId})
+        })
         toast.success('Account created successfully', {
           action: {
             label: 'View Account',
@@ -119,7 +124,12 @@ export default function CreateAccountPage({userId}: { userId: string }) {
                         min="0"
                         step="0.01"
                         {...field}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        onChange={(e) => {
+                          const rawValue = e.target.value;
+                          const formattedValue = rawValue.match(/^\d*\.?\d{0,2}/)?.[0] || '';
+                          const numericValue = formattedValue ? Number(formattedValue) : 0;
+                          field.onChange(numericValue);
+                        }}
                       />
                     </FormControl>
                     <FormDescription>If set, this will create a initial transaction</FormDescription>
@@ -141,7 +151,12 @@ export default function CreateAccountPage({userId}: { userId: string }) {
                         min="0.01"
                         step="0.01"
                         {...field}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        onChange={(e) => {
+                          const rawValue = e.target.value;
+                          const formattedValue = rawValue.match(/^\d*\.?\d{0,2}/)?.[0] || '';
+                          const numericValue = formattedValue ? Number(formattedValue) : 0;
+                          field.onChange(numericValue);
+                        }}
                       />
                     </FormControl>
                     <FormMessage/>

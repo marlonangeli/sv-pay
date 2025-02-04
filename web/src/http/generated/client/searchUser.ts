@@ -7,7 +7,7 @@ import type {
   SearchUser500,
   SearchUserMutationRequest,
   SearchUserMutationResponse
-} from '../models/SearchUser.ts'
+} from '@/http/generated'
 
 export function getSearchUserUrl() {
   return `/api/v1/users/search` as const

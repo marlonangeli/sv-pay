@@ -8,8 +8,8 @@ import type {
   GetAccountById500,
   GetAccountByIdPathParams,
   GetAccountByIdQueryResponse,
-} from '../models/GetAccountById.ts'
-import {getAccountById} from '../client/getAccountById.ts'
+} from '@/http/generated'
+import {getAccountById} from '@/http/generated'
 
 export const getAccountByIdSuspenseQueryKey = ({accountId}: { accountId: GetAccountByIdPathParams['accountId'] }) =>
   [{url: '/api/v1/accounts/:accountId', params: {accountId: accountId}}] as const
@@ -42,6 +42,7 @@ export function getAccountByIdSuspenseQueryOptions(
  */
 export function useGetAccountByIdSuspense<
   TData = ResponseConfig<GetAccountByIdQueryResponse>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TQueryData = ResponseConfig<GetAccountByIdQueryResponse>,
   TQueryKey extends QueryKey = GetAccountByIdSuspenseQueryKey,
 >(

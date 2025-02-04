@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 
-export const SearchUserResult = ({ user, error, onClick }: {
+export function SearchUserResult({user, error, onClick}: {
   user?: { name: string; email: string; cpf: string, initials: string },
   error?: string,
   onClick?: () => void
-}) => {
+}) {
 
   if (error) {
     return (
@@ -35,4 +35,4 @@ export const SearchUserResult = ({ user, error, onClick }: {
       </div>
     </div>
   );
-};
+}

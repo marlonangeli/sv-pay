@@ -8,8 +8,8 @@ import type {
   GetUserById500,
   GetUserByIdPathParams,
   GetUserByIdQueryResponse
-} from '../models/GetUserById.ts'
-import {getUserById} from '../client/getUserById.ts'
+} from '@/http/generated'
+import {getUserById} from '@/http/generated'
 
 export const getUserByIdQueryKey = ({userId}: { userId: GetUserByIdPathParams['userId'] }) =>
   [{url: '/api/v1/users/:userId', params: {userId: userId}}] as const

@@ -1,10 +1,10 @@
-import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet.tsx";
-import {Button} from "@/components/ui/button.tsx";
+import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {Button} from "@/components/ui/button";
 import {Search} from "lucide-react";
 import React from "react";
-import {SearchUserForm} from "@/components/user/search-user-form.tsx";
-import {SearchUserResult} from "@/components/user/search-user-result.tsx";
-import {setUserIdCookieInServer} from "@/lib/cookies.ts";
+import {SearchUserForm} from "@/components/user/search-user-form";
+import {SearchUserResult} from "@/components/user/search-user-result";
+import {setUserIdCookieInServer} from "@/lib/cookies";
 import {redirect} from "next/navigation";
 
 export function SearchUserSheet() {

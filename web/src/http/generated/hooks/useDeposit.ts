@@ -9,8 +9,8 @@ import type {
   Deposit500,
   DepositMutationRequest,
   DepositMutationResponse
-} from '../models/Deposit.ts'
-import {deposit} from '../client/deposit.ts'
+} from '@/http/generated'
+import {deposit} from '@/http/generated'
 
 export const depositMutationKey = () => [{url: '/api/v1/transactions/deposit'}] as const
 

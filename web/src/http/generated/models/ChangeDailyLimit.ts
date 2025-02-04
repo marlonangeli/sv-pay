@@ -1,10 +1,10 @@
-import type {ChangeDailyLimitCommand} from './ChangeDailyLimitCommand.ts'
+import type {ChangeDailyLimitCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**
  * @description No Content
  */
-export type ChangeDailyLimit204 = any
+export type ChangeDailyLimit204 = never
 
 /**
  * @description Bad Request

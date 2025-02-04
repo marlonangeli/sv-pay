@@ -5,7 +5,7 @@ import type {
   GetTransactionById500,
   GetTransactionByIdPathParams,
   GetTransactionByIdQueryResponse,
-} from '../models/GetTransactionById.ts'
+} from '@/http/generated'
 
 export function getGetTransactionByIdUrl({transactionId}: {
   transactionId: GetTransactionByIdPathParams['transactionId']

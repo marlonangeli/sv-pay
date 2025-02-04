@@ -7,7 +7,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "@/components/ui/breadcrumb.tsx";
+} from "@/components/ui/breadcrumb";
 import React from "react";
 import {usePathname} from "next/navigation";
 

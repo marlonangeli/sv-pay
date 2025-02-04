@@ -838,4 +838,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,csharp,visualstudio,rider,nextjs,node
 
-SV.Pay/.idea/.idea.SV.Pay/Docker
+api/.idea/.idea.SV.Pay/Docker

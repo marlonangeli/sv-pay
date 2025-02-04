@@ -9,5 +9,5 @@ export default async function CreateTransactionServer() {
     redirect("/");
   }
 
-  return <CreateTransactionPage userId={userId} />;
+  return <CreateTransactionPage userId={userId}/>;
 }

@@ -8,8 +8,8 @@ import type {
   CreateAccount500,
   CreateAccountMutationRequest,
   CreateAccountMutationResponse,
-} from '../models/CreateAccount.ts'
-import {createAccount} from '../client/createAccount.ts'
+} from '@/http/generated'
+import {createAccount} from '@/http/generated'
 
 export const createAccountMutationKey = () => [{url: '/api/v1/accounts'}] as const
 

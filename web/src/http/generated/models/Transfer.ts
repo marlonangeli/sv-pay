@@ -1,4 +1,4 @@
-import type {CreateTransferCommand} from './CreateTransferCommand.ts'
+import type {CreateTransferCommand} from '@/http/generated'
 import type {ProblemDetails} from './ProblemDetails.ts'
 
 /**

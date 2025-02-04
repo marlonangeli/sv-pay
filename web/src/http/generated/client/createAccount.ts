@@ -6,7 +6,7 @@ import type {
   CreateAccount500,
   CreateAccountMutationRequest,
   CreateAccountMutationResponse,
-} from '../models/CreateAccount.ts'
+} from '@/http/generated'
 
 export function getCreateAccountUrl() {
   return `/api/v1/accounts` as const

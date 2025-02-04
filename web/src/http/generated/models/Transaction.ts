@@ -1,6 +1,6 @@
 import type {Account} from './Account.ts'
 import type {Money} from './Money.ts'
-import type {TransactionType} from './TransactionType.ts'
+import type {TransactionType} from '@/http/generated'
 
 export type Transaction = {
   /**

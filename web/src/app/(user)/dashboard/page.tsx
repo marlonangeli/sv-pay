@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
-import DashboardPage from "@/components/pages/dashboard-page.tsx";
-import {getUserIdFromServer} from "@/lib/cookies.ts";
+import {redirect} from "next/navigation";
+import DashboardPage from "@/components/pages/dashboard-page";
+import {getUserIdFromServer} from "@/lib/cookies";
 
 
 export default async function DashboardServer() {
@@ -10,5 +10,5 @@ export default async function DashboardServer() {
     redirect("/");
   }
 
-  return <DashboardPage userId={userId} />;
+  return <DashboardPage userId={userId}/>;
 }

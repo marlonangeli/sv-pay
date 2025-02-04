@@ -7,8 +7,8 @@ import type {
   GetTransactionById500,
   GetTransactionByIdPathParams,
   GetTransactionByIdQueryResponse,
-} from '../models/GetTransactionById.ts'
-import {getTransactionById} from '../client/getTransactionById.ts'
+} from '@/http/generated'
+import {getTransactionById} from '@/http/generated'
 
 export const getTransactionByIdSuspenseQueryKey = ({transactionId}: {
   transactionId: GetTransactionByIdPathParams['transactionId']
@@ -43,6 +43,7 @@ export function getTransactionByIdSuspenseQueryOptions(
  */
 export function useGetTransactionByIdSuspense<
   TData = ResponseConfig<GetTransactionByIdQueryResponse>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TQueryData = ResponseConfig<GetTransactionByIdQueryResponse>,
   TQueryKey extends QueryKey = GetTransactionByIdSuspenseQueryKey,
 >(

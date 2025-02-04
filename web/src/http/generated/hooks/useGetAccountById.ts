@@ -8,8 +8,8 @@ import type {
   GetAccountById500,
   GetAccountByIdPathParams,
   GetAccountByIdQueryResponse,
-} from '../models/GetAccountById.ts'
-import {getAccountById} from '../client/getAccountById.ts'
+} from '@/http/generated'
+import {getAccountById} from '@/http/generated'
 
 export const getAccountByIdQueryKey = ({accountId}: { accountId: GetAccountByIdPathParams['accountId'] }) =>
   [{url: '/api/v1/accounts/:accountId', params: {accountId: accountId}}] as const

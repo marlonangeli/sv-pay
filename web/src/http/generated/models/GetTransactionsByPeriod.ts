@@ -1,5 +1,5 @@
 import type {ProblemDetails} from './ProblemDetails.ts'
-import type {TransactionPagination} from './TransactionPagination.ts'
+import type {TransactionPagination} from '@/http/generated'
 
 export type GetTransactionsByPeriodPathParams = {
   /**

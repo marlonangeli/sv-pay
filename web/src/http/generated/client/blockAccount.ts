@@ -7,7 +7,7 @@ import type {
   BlockAccount500,
   BlockAccountMutationRequest,
   BlockAccountMutationResponse,
-} from '../models/BlockAccount.ts'
+} from '@/http/generated'
 
 export function getBlockAccountUrl() {
   return `/api/v1/accounts/block` as const
