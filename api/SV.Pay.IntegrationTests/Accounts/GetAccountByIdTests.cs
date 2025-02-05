@@ -58,7 +58,7 @@ public class GetAccountByIdTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var account = await response.Content.ReadFromJsonAsync<Account>();
+        var account = await response.GetContent<Account>();
 
         account.Should().NotBeNull();
         account!.Id.Should().Be(_existingAccount.Id);
@@ -106,7 +106,7 @@ public class GetAccountByIdTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var account = await response.Content.ReadFromJsonAsync<Account>();
+        var account = await response.GetContent<Account>();
 
         account.Should().NotBeNull();
         account!.Balance.Amount.Should().Be(Math.Round(_existingAccount.Balance.Amount, 2));
@@ -121,7 +121,7 @@ public class GetAccountByIdTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var account = await response.Content.ReadFromJsonAsync<Account>();
+        var account = await response.GetContent<Account>();
 
         account.Should().NotBeNull();
         account!.CreatedAt.Kind.Should().Be(DateTimeKind.Utc);

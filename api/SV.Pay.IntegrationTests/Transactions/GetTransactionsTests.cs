@@ -91,7 +91,7 @@ public class GetTransactionTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var transaction = await response.Content.ReadFromJsonAsync<Transaction>();
+        var transaction = await response.GetContent<Transaction>();
 
         transaction.Should().NotBeNull();
         transaction!.Id.Should().Be(existingTransaction.Id);
@@ -125,7 +125,7 @@ public class GetTransactionTests(IntegrationTestWebAppFactory factory) : BaseInt
             .Where(t =>
                 (t.AccountId == _account.Id || t.RelatedAccountId == _account.Id) &&
                 t.Date >= startDate && t.Date <= endDate)
-            .OrderBy(t => t.Date)
+            .OrderByDescending(t => t.Date)
             .ToList();
 
         // Act
@@ -134,7 +134,7 @@ public class GetTransactionTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var result = await response.Content.ReadFromJsonAsync<Pagination<Transaction>>();
+        var result = await response.GetContent<Pagination<Transaction>>();
 
         result.Should().NotBeNull();
         result!.Items.Should().HaveCount(expectedTransactions.Count);
@@ -169,7 +169,7 @@ public class GetTransactionTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var result = await response.Content.ReadFromJsonAsync<Pagination<Transaction>>();
+        var result = await response.GetContent<Pagination<Transaction>>();
 
         result.Should().NotBeNull();
         result!.Items.Should().HaveCountLessThanOrEqualTo(pageSize);
@@ -250,7 +250,7 @@ public class GetTransactionTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var result = await response.Content.ReadFromJsonAsync<Pagination<Transaction>>();
+        var result = await response.GetContent<Pagination<Transaction>>();
 
         result.Should().NotBeNull();
         result!.Items.Should().HaveCount(transferTransactions.Count);

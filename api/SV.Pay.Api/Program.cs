@@ -28,10 +28,10 @@ app.MapEndpoints(group);
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwaggerOpenApi();
-
     app.ApplyMigrations();
 }
+
+app.UseSwaggerOpenApi();
 
 app.UseSerilogRequestLogging();
 

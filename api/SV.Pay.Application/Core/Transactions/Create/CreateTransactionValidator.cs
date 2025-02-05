@@ -21,9 +21,9 @@ public sealed class CreateTransactionValidator : AbstractValidator<CreateTransac
 
         RuleFor(x => x.Date)
             .NotEmpty()
-            .GreaterThan(DateTime.Today.AddYears(-5))
+            .GreaterThan(DateTime.UtcNow.AddYears(-5))
             .WithError(TransactionErrors.InvalidDate)
-            .LessThan(DateTime.Today.AddYears(1))
+            .LessThan(DateTime.UtcNow.AddYears(1))
             .WithError(TransactionErrors.InvalidDate);
     }
 }

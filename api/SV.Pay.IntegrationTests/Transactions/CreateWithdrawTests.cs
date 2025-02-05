@@ -78,7 +78,7 @@ public class CreateWithdrawTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        var transactionId = await response.Content.ReadFromJsonAsync<Guid>();
+        var transactionId = await response.GetContent<Guid>();
         transactionId.Should().NotBeEmpty();
         response.Headers.Location.Should().Be($"/api/v1/transactions/{transactionId}");
 

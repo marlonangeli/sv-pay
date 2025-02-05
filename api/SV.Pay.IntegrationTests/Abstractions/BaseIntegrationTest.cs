@@ -10,6 +10,7 @@ public class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppFactory>
 
     public BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
+
         HttpClient = factory.CreateClient();
         IServiceScope scope = factory.Services.CreateScope();
         DbContext = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();

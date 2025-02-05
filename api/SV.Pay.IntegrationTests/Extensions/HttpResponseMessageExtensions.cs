@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using SV.Pay.IntegrationTests.Contracts;
 
@@ -6,15 +7,23 @@ namespace SV.Pay.IntegrationTests.Extensions;
 
 internal static class HttpResponseMessageExtensions
 {
-    private static async Task<T> GetContent<T>(
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        Converters = { new JsonStringEnumConverter() },
+        PropertyNameCaseInsensitive = true
+    };
+
+    internal static async Task<T> GetContent<T>(
         this HttpResponseMessage response)
     {
-        T? content = await response.Content.ReadFromJsonAsync<T>();
+        string content = await response.Content.ReadAsStringAsync();
+        T? deserializedContent = JsonSerializer.Deserialize<T>(content, JsonOptions);
 
-        if (content is null)
+        if (deserializedContent is null)
             throw new InvalidOperationException("Content not found");
 
-        return content;
+        return deserializedContent;
     }
 
     internal static async Task<CustomProblemDetails> GetCustomProblemDetails(

@@ -28,7 +28,7 @@ namespace SV.Pay.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<long>("Balance")
+                    b.Property<decimal>("Balance")
                         .IsConcurrencyToken()
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
@@ -38,7 +38,7 @@ namespace SV.Pay.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
 
-                    b.Property<long>("DailyLimit")
+                    b.Property<decimal>("DailyLimit")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("daily_limit");
@@ -85,7 +85,7 @@ namespace SV.Pay.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("account_id");
 
-                    b.Property<long>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("amount");

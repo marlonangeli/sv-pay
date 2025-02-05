@@ -61,7 +61,7 @@ public class CreateAccountTests(IntegrationTestWebAppFactory factory) : BaseInte
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         response.Headers.Location.Should().NotBeNull();
-        var accountId = await response.Content.ReadFromJsonAsync<Guid>();
+        var accountId = await response.GetContent<Guid>();
         accountId.Should().NotBeEmpty();
         response.Headers.Location.Should().Be($"/api/v1/accounts/{accountId}");
 
@@ -184,7 +184,7 @@ public class CreateAccountTests(IntegrationTestWebAppFactory factory) : BaseInte
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        var accountId = await response.Content.ReadFromJsonAsync<Guid>();
+        var accountId = await response.GetContent<Guid>();
 
         var transaction = await DbContext.Transactions
             .FirstOrDefaultAsync(t => t.AccountId == accountId && t.Type == TransactionType.Deposit);
@@ -210,7 +210,7 @@ public class CreateAccountTests(IntegrationTestWebAppFactory factory) : BaseInte
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        var accountId = await response.Content.ReadFromJsonAsync<Guid>();
+        var accountId = await response.GetContent<Guid>();
 
         var transaction = await DbContext.Transactions
             .FirstOrDefaultAsync(t => t.AccountId == accountId);

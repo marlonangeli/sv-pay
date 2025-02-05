@@ -88,7 +88,7 @@ public class CreateTransferTests(IntegrationTestWebAppFactory factory) : BaseInt
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        var transactionId = await response.Content.ReadFromJsonAsync<Guid>();
+        var transactionId = await response.GetContent<Guid>();
         transactionId.Should().NotBeEmpty();
         response.Headers.Location.Should().Be($"/api/v1/transactions/{transactionId}");
 
@@ -302,5 +302,25 @@ public class CreateTransferTests(IntegrationTestWebAppFactory factory) : BaseInt
         error.Errors.Should().Contain(e =>
             e.Code == TransactionErrors.InvalidDate.Code &&
             e.Description == TransactionErrors.InvalidDate.Description);
+    }
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_When_SourceAndTargetAccountsAreTheSame()
+    {
+        // Arrange
+        var request = _baseRequest with {
+            AccountId = _sourceAccountId,
+            RelatedAccountId = _sourceAccountId
+        };
+
+        // Act
+        var response = await HttpClient.PostAsJsonAsync("/api/v1/transactions/transfer", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var error = await response.GetCustomProblemDetails();
+        error.Errors.Should().Contain(e =>
+            e.Code == TransactionErrors.AccountIdAndRelatedAccountIdCantBeTheSame.Code &&
+            e.Description == TransactionErrors.AccountIdAndRelatedAccountIdCantBeTheSame.Description);
     }
 }
