@@ -35,7 +35,7 @@ const formSchema = z.object({
   }).refine(date => {
     const today = new Date()
     const minDate = new Date()
-    minDate.setFullYear(today.getFullYear() - 150)
+    minDate.setUTCFullYear(today.getUTCFullYear() - 150)
     return date > minDate && date < today
   }, {message: "Must be between 150 years ago and today"}),
   cpf: z.string()
@@ -91,7 +91,6 @@ export default function CreateUserPage() {
     })
   }
 
-  // A small subcomponent for the date picker with year navigation.
   function DatePickerField({field}: {
     field: ControllerRenderProps<{
       email: string
@@ -101,7 +100,6 @@ export default function CreateUserPage() {
       dateOfBirth: Date
     }, "dateOfBirth">
   }) {
-    // Use a local state for the displayed month. Initialize it to the field value (if present) or today.
     const [selectedMonth, setSelectedMonth] = React.useState<Date>(field.value || new Date())
 
     return (
@@ -133,7 +131,7 @@ export default function CreateUserPage() {
                 variant="ghost"
                 onClick={() =>
                   setSelectedMonth(
-                    new Date(selectedMonth.getFullYear() - 1, selectedMonth.getMonth())
+                    new Date(selectedMonth.getUTCFullYear() - 1, selectedMonth.getUTCMonth())
                   )
                 }
               >
@@ -146,7 +144,7 @@ export default function CreateUserPage() {
                 variant="ghost"
                 onClick={() =>
                   setSelectedMonth(
-                    new Date(selectedMonth.getFullYear() + 1, selectedMonth.getMonth())
+                    new Date(selectedMonth.getUTCFullYear() + 1, selectedMonth.getUTCMonth())
                   )
                 }
               >
@@ -161,7 +159,7 @@ export default function CreateUserPage() {
               onSelect={field.onChange}
               disabled={date =>
                 date > new Date() ||
-                date < new Date(new Date().setFullYear(new Date().getFullYear() - 150))
+                date < new Date(new Date().setUTCFullYear(new Date().getUTCFullYear() - 150))
               }
               initialFocus
               className="rounded-md border"

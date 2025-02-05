@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog';
-import { Info } from 'lucide-react';
-import { User } from '@/http/generated';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import React, {useState} from 'react';
+import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
+import {Info} from 'lucide-react';
+import {User} from '@/http/generated';
+import {Avatar, AvatarFallback} from '@/components/ui/avatar';
+import {Button} from '@/components/ui/button';
+import {addHours} from 'date-fns';
 
 export interface UserInfoModalProps {
   user: User;
 }
 
-export function UserInfoModal({ user }: UserInfoModalProps) {
+export function UserInfoModal({user}: UserInfoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const initials = user.fullName?.split(" ").map((n) => n[0]).join("") || "";
 
   const formatDate = (date?: Date) => {
-    return date ? new Date(date).toLocaleDateString() : 'Not provided';
+    return date ? new Date(addHours(date, 3)).toLocaleDateString() : 'Not provided';
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm" className="w-full justify-start">
-          <Info className="mr-2 size-4" />
+          <Info className="mr-2 size-4"/>
           Info
         </Button>
       </DialogTrigger>
